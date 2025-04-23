@@ -14,9 +14,6 @@
 4. Instalar Bootstrap
 ``` pip install django-bootstrap-v5 ```
 
-5. creamos la app
-``` python manage.py startapp myFerremax ```
-
 
 # Codigo de migracion y inicio del proyecto
 
