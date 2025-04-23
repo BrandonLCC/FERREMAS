@@ -25,7 +25,7 @@
 - Acceder a la carpeta
 ``` cd ferremaxProject ```   
 
-sirve para crear archivos de migración que reflejan los cambios que has hecho en los modelos (models.py) de tu aplicación.
+makemigrations: sirve para crear archivos de migración que reflejan los cambios que has hecho en los modelos (models.py) de tu aplicación.
 
 ``` python manage.py makemigrations ```
 
