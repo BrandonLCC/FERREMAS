@@ -40,7 +40,7 @@ sirve para crear archivos de migración que reflejan los cambios que has hecho e
 **1. Antes de que subas un commit, asegúrate de que no estás subiendo el entorno virtual al repositorio.**
 - Ingresa almenos este codigo al archivo ubicado en el entorno virtual .gitignore
 
-# Entorno virtual - (si le diste otro nombre a tu entorno virtual debes cambiarle el nombre)
+### Entorno virtual - (si le diste otro nombre a tu entorno virtual debes cambiarle el nombre)
 venv/
 env/
 ENV/
