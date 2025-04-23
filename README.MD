@@ -17,6 +17,7 @@
 
 # Codigo de migracion y inicio del proyecto
 
+- Activa el entorno si no esta activado
 ``` venv\Scripts\activate ```
 
 - Acceder a la carpeta
@@ -32,7 +33,7 @@ makemigrations: sirve para crear archivos de migración que reflejan los cambios
 
 # Ignorar entorno virtual para los commits
 **1. Antes de que subas un commit, asegúrate de que no estás subiendo el entorno virtual al repositorio.**
-- Ingresa almenos este codigo al archivo ubicado en el entorno virtual .gitignore
+- Ingresa al menos este codigo al archivo ubicado en el entorno virtual .gitignore
 - Entorno virtual - (si le diste otro nombre a tu entorno virtual debes cambiarle el nombre)
 
 
