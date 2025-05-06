@@ -1,10 +1,6 @@
 * {
 }
 
-:root {
-    color-scheme: dark;
-}
-
 .navbar {
     background-color: #0f1618;
 }
@@ -13,7 +9,12 @@
     height: 500px;
 }
 
-/* MANEJO DE LA CATEGORIA */
+:root {
+ --color-seleccion: rgb(203, 203, 203);
+    
+}
+
+/* ROOT DE LA CATEGORIA */
 :root {
     --screenWidth: 300px;
     --lineClamp: 6;
@@ -78,8 +79,9 @@
     --buttonBorderType: solid;
 }
 
-::-webkit-scrollbar {
+.mainContainerCarouselFinal::-webkit-scrollbar {
     width: 0px;
+    height: 0px; /* también oculta el scroll horizontal */
 }
 
 .rounded-reel-item {
@@ -154,8 +156,15 @@
 }
 
 .slideTemplate:hover {
-    
+    top: 10px;
+    animation-duration: 2s;
+    transition: all 1s ease; 
+    transform: translateY(-10px); 
+    background-color: var(--color-seleccion);
+
 }
+
+
 
 .slideTemplate img {
     width: var(--ImgWidthSlide);
@@ -175,62 +184,6 @@
     background: linear-gradient(var(--slideGradientBgStartOrientation), var(--slideGradientBackgroundColorStart) var(--slideGradientBgStartIntensity), var(--slideGradientBackgroundColorEnd) var(--slideGradientBgEndIntensity));
 }
 
-.slideTemplate p,
-.slideTemplate h2 {
-    max-width: 200px;
-}
-
-.slideTemplate p {
-    margin-top: var(--marginTopText);
-    margin-bottom: var(--marginBottomText);
-    margin-left: var(--marginLeftText);
-    margin-right: var(--marginRightText);
-    text-align: var(--textAlignment);
-    color: var(--textColor);
-    font-size: var(--textSize);
-    font-weight: var(--textWeight);
-    white-space: initial;
-    line-height: 1.6;
-}
-
-.slideTemplate h2 {
-    margin-top: var(--marginTopTitle);
-    margin-bottom: var(--marginBottomTitle);
-    margin-left: var(--marginLeftTitle);
-    margin-right: var(--marginRightTitle);
-    text-align: var(--titleAlignment);
-    color: var(--titleColor);
-    font-size: var(--TitleSize);
-    font-weight: var(--titleWeight);
-    font-family: 'Fira Sans', sans-serif;
-}
-
-.slideTemplate a {
-    margin: auto;
-    display: block;
-    text-decoration: none;
-    padding: 5px 15px;
-    font-size: var(--buttonFontSize);
-    line-height: 25px;
-    font-weight: var(--buttonWeight);
-    letter-spacing: -.005em;
-    color: var(--buttonFontColor);
-    text-align: var(--buttonTextAlign);
-    border-radius: var(--buttonBorderRadius);
-    cursor: pointer;
-    background-color: var(--buttonBgColor);
-    width: var(--buttonWidth);
-    text-transform: none !important;
-    padding-bottom: var(--buttonpaddingBottom);
-    padding-top: var(--buttonpaddingTop);
-    padding-left: var(--buttonpaddingLeft);
-    padding-right: var(--buttonpaddingRight);
-    border-width: var(--buttonBorderSize);
-    border-color: var(--buttonBorderColor);
-    border-style: var(--buttonBorderType);
-    font-family: "Fira Sans", sans-serif;
-}
-
 .slideContainer {
     display: flex;
     flex-direction: row;
@@ -245,6 +198,8 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+
 
 .mainContainerCarouselFinal {
     padding-left: 0px;

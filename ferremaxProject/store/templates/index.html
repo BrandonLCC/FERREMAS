@@ -7,11 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ferremax</title>
+
+
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
     <link rel="stylesheet" href="{% static 'css/stylee.css' %}">
-
+    <!--Iconos-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -75,42 +80,67 @@
     </div>
 
     <!--Seccion categorias -->
+    <div class="col-11 mx-auto my-5">
 
-    <div class="containerVertical  ">
-        <div class="slideContainer col-10 mx-auto">
-            <div class="mainContainerCarouselFinal" style="--screenWidth: 1382.4px;">
-                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
-                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
-                </div>
-                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
-                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
-                </div>
-                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
-                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
-                </div>
-                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
-                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
-                </div>
-                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
-                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
-                </div>
-                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
-                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
+
+        <div class="containerVertical ">
+            <h3 class="titulo-categoria">
+                <i class="fas fa-tags mx-auto"></i>
+                Categorias
+            </h3>
+            <div class="slideContainer ">
+                <div class="mainContainerCarouselFinal" style="--screenWidth: 1382.4px;">
+                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                            src="{% static  'images/ejemplo_categoria.jpg' %}">
+                    </a>
+                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                            src="{% static  'images/ejemplo_categoria.jpg' %}">
+                    </a>
+                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                            src="{% static  'images/ejemplo_categoria.jpg' %}">
+                    </a>
+                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                            src="{% static  'images/ejemplo_categoria.jpg' %}">
+                    </a>
+                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                            src="{% static  'images/ejemplo_categoria.jpg' %}">
+                    </a>
+                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                            src="{% static  'images/ejemplo_categoria.jpg' %}">
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="controlerFinalCarousel">
-            <div><img src="https://www.htmlcssbuttongenerator.com/image/arrowLeft.png"
-                    style="transform: rotate(180deg);" height="12px" width="12px" alt="controler to the right"></div>
-            <div><img src="https://www.htmlcssbuttongenerator.com/image/arrowLeft.png" height="12px" width="12px"
-                    alt="controler to the right"></div>
+            <div class="controlerFinalCarousel">
+                <div><img src="https://www.htmlcssbuttongenerator.com/image/arrowLeft.png"
+                        style="transform: rotate(180deg);" height="12px" width="12px" alt="controler to the right">
+                </div>
+                <div><img src="https://www.htmlcssbuttongenerator.com/image/arrowLeft.png" height="12px" width="12px"
+                        alt="controler to the right"></div>
+            </div>
         </div>
     </div>
-  
     <script>                            const container = document.querySelector(".mainContainerCarouselFinal"); const slide = document.querySelector(".slideTemplate"); const prevBtn = document.querySelector(".controlerFinalCarousel div:nth-child(1)"); const nextBtn = document.querySelector(".controlerFinalCarousel div:nth-child(2)"); let nbclick = 0; const nbSlide = 10; const { style: containerStyle, getComputedStyle: getCS } = window; nextBtn.addEventListener("click", () => { if (nbclick < nbSlide - 1) { nbclick++; updateScroll(); } }); prevBtn.addEventListener("click", () => { if (nbclick > 0) { nbclick--; updateScroll(); } }); function updateScroll() { const screenWidth = parseInt(getCS(container).getPropertyValue("--screenWidth").replace("px", "")); const slideHeight = parseInt(getCS(slide).getPropertyValue("--slideHeight").replace("px", "")); const scrollAmount = ((screenWidth - (slideHeight + 40)) / 2) * nbclick; container.scroll({ left: scrollAmount, behavior: "smooth" }); }                            </script>
 
-<!--Seccion Productos -->
+    <!--Seccion Productos -->
+    <div class="div-orden-productos">
+        <h3 class="titulo-categoria">
+            <i class="fas fa-tags mx-auto"></i>
+            Productos
+        </h3>
+        {% for producto in productos %}
+        <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
+            <div class="card mx-auto">
+                {% if producto.imagen_producto %}
+                <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                {% endif %}
+                <h1>{{ producto.nombre_producto }}</h1>
+                <h6>{{ producto.precio_producto }}</h6>
 
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
 </body>
+
 </html>

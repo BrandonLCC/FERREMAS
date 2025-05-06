@@ -14,6 +14,10 @@
 4. Instalar Bootstrap
 ``` pip install django-bootstrap-v5 ```
 
+5. Instalar pilow si lo requiere
+``` python -m pip install Pillow    ```
+
+
 
 # Codigo de migracion y inicio del proyecto
 
