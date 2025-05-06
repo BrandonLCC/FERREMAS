@@ -2,18 +2,115 @@
 {% load static %}
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ferremax</title>
     {% load bootstrap5 %}
     {% bootstrap_css %}
-   
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/stylee.css' %}">
 
 
 </head>
+
 <body>
-    <h1>hola</h1>
+
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar scroll</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Link
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Link</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carrusel -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static './images/carrusel-ejemplo.jpg '%}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static './images/carrusel-ejemplo.jpg '%}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="..." class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+
+    <!--Seccion categorias -->
+
+    <div class="containerVertical  ">
+        <div class="slideContainer col-10 mx-auto">
+            <div class="mainContainerCarouselFinal" style="--screenWidth: 1382.4px;">
+                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
+                </div>
+                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
+                </div>
+                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
+                </div>
+                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
+                </div>
+                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
+                </div>
+                <div class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                        src="https://resource.logitech.com/w_797,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s-business-wireless-mouse/mx-master-3s-for-business-overview-tabs-liza-modal.png?v=1">
+                </div>
+            </div>
+        </div>
+        <div class="controlerFinalCarousel">
+            <div><img src="https://www.htmlcssbuttongenerator.com/image/arrowLeft.png"
+                    style="transform: rotate(180deg);" height="12px" width="12px" alt="controler to the right"></div>
+            <div><img src="https://www.htmlcssbuttongenerator.com/image/arrowLeft.png" height="12px" width="12px"
+                    alt="controler to the right"></div>
+        </div>
+    </div>
+  
+    <script>                            const container = document.querySelector(".mainContainerCarouselFinal"); const slide = document.querySelector(".slideTemplate"); const prevBtn = document.querySelector(".controlerFinalCarousel div:nth-child(1)"); const nextBtn = document.querySelector(".controlerFinalCarousel div:nth-child(2)"); let nbclick = 0; const nbSlide = 10; const { style: containerStyle, getComputedStyle: getCS } = window; nextBtn.addEventListener("click", () => { if (nbclick < nbSlide - 1) { nbclick++; updateScroll(); } }); prevBtn.addEventListener("click", () => { if (nbclick > 0) { nbclick--; updateScroll(); } }); function updateScroll() { const screenWidth = parseInt(getCS(container).getPropertyValue("--screenWidth").replace("px", "")); const slideHeight = parseInt(getCS(slide).getPropertyValue("--slideHeight").replace("px", "")); const scrollAmount = ((screenWidth - (slideHeight + 40)) / 2) * nbclick; container.scroll({ left: scrollAmount, behavior: "smooth" }); }                            </script>
+
+<!--Seccion Productos -->
+
+
 </body>
 </html>
