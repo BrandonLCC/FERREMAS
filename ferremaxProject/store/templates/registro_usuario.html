@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferremax</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
+
+</head>
+<body>
+ 
+    <!--<img src="{% static 'images/linkIMG' %}" class="imagen-fondo   w-100 " alt="...">-->
+<section class = "formulario-padre col-10 mx-auto">
+    <div class="fromulario-hijo col-12 mx-auto ">
+        <!--DIV 1-->
+        <div class="div-1 col-6 ms-auto">
+            <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 img-registro" alt="...">
+                <h3 class="mensaje-login ">¡Te damos la bienvenida!</h3>
+                <p class="mensaje-login-2  ">Acceda por aquí si ya se ha registrado.</p>
+                <a class  ="boton-login  px-5" href="{% url 'inicio_sesion' %}">Inicio sesion</a>
+                <a class  ="boton-home  px-5" href="{% url 'home' %}">home</a>
+
+        </div>
+        <!--DIV 2-->
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+            <!-- COMIENZO FORMULARIO -->
+             <!-- METODO POST IMPORTANTE PARA ENVIAR LOS DATOS DEL USUARIO -->
+             {% if messages %}
+            {% for message in messages %}
+            <div class="notificaction {{message.tags}}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+             {% block content %}
+             
+             <form id="miFormulario" method="post" class="col-12">
+                 {% csrf_token %}
+                 
+                 <!-- Renderiza el formulario completo -->
+                 {{ form.as_p }}
+                 
+                 <!-- Botón de enviar -->
+                 <button type="submit" id="submit" class="btn btn-primary">Registrarse</button>
+             </form>
+             {% endblock %}
+             
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

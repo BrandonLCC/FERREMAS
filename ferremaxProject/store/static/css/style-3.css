@@ -233,3 +233,23 @@
     justify-content: space-around;
     align-items: center;
 }
+
+
+.btn-principal {
+    position: relative;
+    background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
+    color: white;
+    padding: 6px;
+    text-decoration: none;
+    text-shadow: 0px 0px 5px #ffd000;
+    transition: all 0.6s ease-in-out; 
+    
+}
+
+.btn-principal:hover {
+    background: linear-gradient(85deg, #ffd000, #ff6d44, #ff3939); 
+    color: rgb(251, 255, 124);
+    text-shadow: 0px 0px 10px #ffeb93;
+    border-radius: 5px;
+   
+}

@@ -6,13 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ferremax</title>
+    <title>Ferremax</title>
 
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
-    <link rel="stylesheet" href="{% static 'css/stylee.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style-3.css' %}">
     <!--Iconos-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -33,10 +33,10 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#">iniciar sesion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">registro</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -122,25 +122,35 @@
     <script>                            const container = document.querySelector(".mainContainerCarouselFinal"); const slide = document.querySelector(".slideTemplate"); const prevBtn = document.querySelector(".controlerFinalCarousel div:nth-child(1)"); const nextBtn = document.querySelector(".controlerFinalCarousel div:nth-child(2)"); let nbclick = 0; const nbSlide = 10; const { style: containerStyle, getComputedStyle: getCS } = window; nextBtn.addEventListener("click", () => { if (nbclick < nbSlide - 1) { nbclick++; updateScroll(); } }); prevBtn.addEventListener("click", () => { if (nbclick > 0) { nbclick--; updateScroll(); } }); function updateScroll() { const screenWidth = parseInt(getCS(container).getPropertyValue("--screenWidth").replace("px", "")); const slideHeight = parseInt(getCS(slide).getPropertyValue("--slideHeight").replace("px", "")); const scrollAmount = ((screenWidth - (slideHeight + 40)) / 2) * nbclick; container.scroll({ left: scrollAmount, behavior: "smooth" }); }                            </script>
 
     <!--Seccion Productos -->
-    <div class="div-orden-productos">
-        <h3 class="titulo-categoria">
-            <i class="fas fa-tags mx-auto"></i>
-            Productos
-        </h3>
+
+    <h3 class="titulo-categoria">
+        <i class="fas fa-tags mx-auto"></i>
+        Productos
+    </h3>
+
+    <div class="div-orden-productos col-6 d-flex">    
         {% for producto in productos %}
-        <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
+        <div class="col-6 col-sm-5 col-md-4 col-xl-3 mx-auto">
             <div class="card mx-auto">
                 {% if producto.imagen_producto %}
                 <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
                 {% endif %}
-                <h1>{{ producto.nombre_producto }}</h1>
-                <h6>{{ producto.precio_producto }}</h6>
-
+                <div class="mx-auto">
+                    <p>{{ producto.nombre_producto }}</p>
+                    <p>{{ producto.descripcion_producto }}</p>
+                    <p>{{ producto.precio_producto }}</p>
+                </div>
+                <div class="mx-auto">
+                    <a class="btn-principal" href="">
+                        <i class="fas fa-tags mx-auto"></i>
+                        Ver Producto</a>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
 
+    <br>
 </body>
 
 </html>

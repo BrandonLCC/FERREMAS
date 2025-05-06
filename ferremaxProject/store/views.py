@@ -7,10 +7,17 @@ def home(request):
     return render(request, 'index.html', {'productos':productos} )
 
 def listaProductos(request):
-    return 0
+    categoria = request.GET.get('id_categoria', '')  
+
+    if categoria:
+        productos = Producto.objects.filter(id_categoria=categoria).select_related('id_categoria') #filtramos por id de la cate
+    else:
+        categoria = None
+        productos = Producto.objects.all()  
+
+    return render(request, 'lista_productos.html', {'categoria':categoria,'productos':productos})
 
 '''
-
 
 def listaProductos(request):
       categoria = request.GET.get('id_categoria', '')  
