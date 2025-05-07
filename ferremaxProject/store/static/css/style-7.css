@@ -2,8 +2,23 @@
 }
 
 .navbar {
-    background-color: #0f1618;
+
+    background-color: #ff3939;
 }
+
+.logo-ferremas {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 1000px;
+}
+
+/*Links a*/
+.navbar-brand, .nav-item, .nav-link {
+    color: white;
+}
+
+
 
 .carousel-inner {
     height: 500px;
@@ -81,7 +96,7 @@
 
 .mainContainerCarouselFinal::-webkit-scrollbar {
     width: 0px;
-    height: 0px; /* también oculta el scroll horizontal */
+    height: 0px;
 }
 
 .rounded-reel-item {
@@ -100,6 +115,8 @@
     flex-direction: column;
     border-radius: var(--slideBorderRadiusSlide);
     min-width: 100vw;
+   
+
 }
 
 .controlerFinalCarousel div {
@@ -137,7 +154,6 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    border: 1px solid black;
 }
 
 .slideTemplate {
@@ -238,18 +254,62 @@
 .btn-principal {
     position: relative;
     background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
-    color: white;
-    padding: 6px;
     text-decoration: none;
+    color: white;
     text-shadow: 0px 0px 5px #ffd000;
     transition: all 0.6s ease-in-out; 
-    
+    padding: 6px;
+
 }
 
+
+
 .btn-principal:hover {
-    background: linear-gradient(85deg, #ffd000, #ff6d44, #ff3939); 
-    color: rgb(251, 255, 124);
+    background-color: #ff3939;
+    color: rgb(253, 255, 186);
     text-shadow: 0px 0px 10px #ffeb93;
     border-radius: 5px;
+    
    
+}
+
+.div-titulo-categoria {
+ /*  background: linear-gradient(80deg, #ffffff,#ff3939,#ffd000, #ffffff);  */
+    padding: 5px;
+
+}
+
+.div-seccion  {
+    padding-bottom: 20px;
+    border-left: 1px solid var(--color-seleccion);
+    border-right: 1px solid var(--color-seleccion);
+    border-bottom: 1px solid var(--color-seleccion);
+    
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
+.titulo-producto {
+    background: linear-gradient(80deg, #ff3939,#ff3939,#ff3939, #ff6d44, #ffd000); 
+    padding: 5px;
+    margin-bottom: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
+.card {
+    z-index: 2;
+
+} 
+
+.card:hover {
+    transform: translateY(-10px); 
+    transition: all 1s ease; 
+
+}
+
+
+.div-orden-productos {
 }

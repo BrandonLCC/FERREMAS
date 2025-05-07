@@ -6,13 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferremax</title>
+    <title>Ferremas</title>
 
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
-    <link rel="stylesheet" href="{% static 'css/style-3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style-7.css' %}">
     <!--Iconos-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -25,7 +25,11 @@
     <!-- NAV -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar scroll</a>
+            <a class="navbar-brand" href="#">
+               <!--<img class="logo-ferremas" src="{% static  'images/logo-ferremas.png' %}" alt="">--> 
+               Ferremas
+
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,27 +37,19 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">iniciar sesion</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
+                            <i class="fas fa-user"></i>
+                            Iniciar sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">registro</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Link
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link" href="{% url 'registro' %}">
+                            <i class="fas fa-user-plus"></i> 
+                            Crear cuenta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Link</a>
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
+                            Carro </a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -79,33 +75,45 @@
         </div>
     </div>
 
+    <br>
+
     <!--Seccion categorias -->
     <div class="col-11 mx-auto my-5">
-
-
         <div class="containerVertical ">
-            <h3 class="titulo-categoria">
-                <i class="fas fa-tags mx-auto"></i>
-                Categorias
-            </h3>
+            <div class="col-5 div-titulo-categoria text-center">
+                <h3 class="titulo-categoria">
+                    <i class="fas fa-tags mx-auto"></i>
+                    Categorias
+                </h3>
+            </div>
+            <div class="sub-tititulo">
+                <p class="pt-3">¡Mira todas nuestras categorias disponibles!</p>
+            </div>
+            
             <div class="slideContainer ">
                 <div class="mainContainerCarouselFinal" style="--screenWidth: 1382.4px;">
-                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                    <a href="{% url 'lista_productos' %}?id_categoria=1" class="slideTemplate"
+                        style="--slideHeight: 150px; transform: translateY(0px);"><img
                             src="{% static  'images/ejemplo_categoria.jpg' %}">
                     </a>
-                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                    <a href="{% url 'lista_productos' %}?id_categoria=2" class="slideTemplate"
+                        style="--slideHeight: 150px; transform: translateY(0px);"><img
                             src="{% static  'images/ejemplo_categoria.jpg' %}">
                     </a>
-                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                    <a href="{% url 'lista_productos' %}?id_categoria=3" class="slideTemplate"
+                        style="--slideHeight: 150px; transform: translateY(0px);"><img
                             src="{% static  'images/ejemplo_categoria.jpg' %}">
                     </a>
-                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                    <a href="{% url 'lista_productos' %}?id_categoria=4" class="slideTemplate"
+                        style="--slideHeight: 150px; transform: translateY(0px);"><img
                             src="{% static  'images/ejemplo_categoria.jpg' %}">
                     </a>
-                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                    <a href="{% url 'lista_productos' %}?id_categoria=5" class="slideTemplate"
+                        style="--slideHeight: 150px; transform: translateY(0px);"><img
                             src="{% static  'images/ejemplo_categoria.jpg' %}">
                     </a>
-                    <a href="#" class="slideTemplate" style="--slideHeight: 150px; transform: translateY(0px);"><img
+                    <a href="{% url 'lista_productos' %}?id_categoria=6" class="slideTemplate"
+                        style="--slideHeight: 150px; transform: translateY(0px);"><img
                             src="{% static  'images/ejemplo_categoria.jpg' %}">
                     </a>
                 </div>
@@ -121,34 +129,43 @@
     </div>
     <script>                            const container = document.querySelector(".mainContainerCarouselFinal"); const slide = document.querySelector(".slideTemplate"); const prevBtn = document.querySelector(".controlerFinalCarousel div:nth-child(1)"); const nextBtn = document.querySelector(".controlerFinalCarousel div:nth-child(2)"); let nbclick = 0; const nbSlide = 10; const { style: containerStyle, getComputedStyle: getCS } = window; nextBtn.addEventListener("click", () => { if (nbclick < nbSlide - 1) { nbclick++; updateScroll(); } }); prevBtn.addEventListener("click", () => { if (nbclick > 0) { nbclick--; updateScroll(); } }); function updateScroll() { const screenWidth = parseInt(getCS(container).getPropertyValue("--screenWidth").replace("px", "")); const slideHeight = parseInt(getCS(slide).getPropertyValue("--slideHeight").replace("px", "")); const scrollAmount = ((screenWidth - (slideHeight + 40)) / 2) * nbclick; container.scroll({ left: scrollAmount, behavior: "smooth" }); }                            </script>
 
+
     <!--Seccion Productos -->
 
-    <h3 class="titulo-categoria">
-        <i class="fas fa-tags mx-auto"></i>
-        Productos
-    </h3>
-
-    <div class="div-orden-productos col-6 d-flex">    
-        {% for producto in productos %}
-        <div class="col-6 col-sm-5 col-md-4 col-xl-3 mx-auto">
-            <div class="card mx-auto">
-                {% if producto.imagen_producto %}
-                <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                {% endif %}
-                <div class="mx-auto">
-                    <p>{{ producto.nombre_producto }}</p>
-                    <p>{{ producto.descripcion_producto }}</p>
-                    <p>{{ producto.precio_producto }}</p>
-                </div>
-                <div class="mx-auto">
-                    <a class="btn-principal" href="">
-                        <i class="fas fa-tags mx-auto"></i>
-                        Ver Producto</a>
+    <div class="div-seccion  col-11 mx-auto my-5">
+        <div class="titulo-producto">
+            <h3 class ="ms-2 mt-1 ">
+                <i class="fas fa-shopping-bag mx-auto"></i>
+                Productos
+            </h3>
+        </div>
+        
+        <div class="div-orden-productos col-12 mx-auto row">
+            {% for producto in productos %}
+            <div class="col-5 col-sm-4 col-md-3 col-xl-2 mx-auto ">
+                <div class="card mx-auto">
+                    {% if producto.imagen_producto %}
+                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                    {% endif %}
+                    <div class="mx-auto">
+                        <p class="text-center">{{ producto.nombre_producto }}</p>
+                        <p>{{ producto.descripcion_producto|truncatechars:20 }}</p>
+                        <p>${{ producto.precio_producto }}</p>
+                    </div>
+    
+                    <div class="mx-auto mb-3"> 
+                        <a class="btn-principal" href="{% url 'detalle_productos' producto.id  %}">
+                            Ver Producto
+                            <i class="fas fa-eye"></i>
+                        </a>
+                            
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
+   
 
     <br>
 </body>

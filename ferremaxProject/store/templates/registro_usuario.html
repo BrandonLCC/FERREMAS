@@ -9,7 +9,6 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'css/registro.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
 
 </head>
 <body>
@@ -19,12 +18,7 @@
     <div class="fromulario-hijo col-12 mx-auto ">
         <!--DIV 1-->
         <div class="div-1 col-6 ms-auto">
-            <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 img-registro" alt="...">
-                <h3 class="mensaje-login ">¡Te damos la bienvenida!</h3>
-                <p class="mensaje-login-2  ">Acceda por aquí si ya se ha registrado.</p>
-                <a class  ="boton-login  px-5" href="{% url 'inicio_sesion' %}">Inicio sesion</a>
-                <a class  ="boton-home  px-5" href="{% url 'home' %}">home</a>
-
+           
         </div>
         <!--DIV 2-->
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
@@ -48,6 +42,8 @@
                  
                  <!-- Botón de enviar -->
                  <button type="submit" id="submit" class="btn btn-primary">Registrarse</button>
+                 <a class="nav-link" href="{% url 'home' %}">volver</a>
+
              </form>
              {% endblock %}
              
