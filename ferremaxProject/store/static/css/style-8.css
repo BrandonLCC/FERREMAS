@@ -3,7 +3,13 @@
 
 .navbar {
 
-    background-color: #ff3939;
+    background-color: #191919;
+}
+
+.nav-des { 
+    background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
+    height: 2px;
+    
 }
 
 .logo-ferremas {
