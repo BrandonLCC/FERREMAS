@@ -20,14 +20,59 @@
 
 </head>
 
+<style>
+
+
+
+</style>
 <body>
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+               <!--<img class="logo-ferremas" src="{% static  'images/logo-ferremas.png' %}" alt="">--> 
+               Ferremas
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
+                            <i class="fas fa-user"></i>
+                            Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro' %}">
+                            <i class="fas fa-user-plus"></i> 
+                            Crear cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
+                            Carro </a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
 
     <!--Seccion Productos -->
-    <section class="col-11 bg-primary mx-auto d-flex">        
+
+    <br><br><br>
+    <section class=" fondo col-11  mx-auto d-flex">        
         <div class="div-orden-productos col-6">
             <div class="col-6 mx-auto">
                     {% if producto.imagen_producto %}
-                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top imagen_producto" alt="{{ producto.nombre_producto }}">
                     {% endif %}
             </div>
         </div>
@@ -37,8 +82,14 @@
             <p>{{ producto.descripcion_producto }}</p>
             <p>{{ producto.precio_producto }}</p>
             <div>
-                <button>Modificar </button>
-                <button>Carro</button>
+                <form action="{% url 'agregar_al_carrito' producto.id %}" method="post" class="mt-3 py-5 text-center">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">
+                        Agregar al Carro
+                        <i class="fas fa-shopping-cart"></i> <!-- icon carro -->
+                    </button>
+                </form>
             </div>
         </div>
     </section>

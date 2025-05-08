@@ -1,0 +1,33 @@
+* {
+}
+
+.navbar {
+
+    background-color: #191919;
+}
+
+.nav-des { 
+    background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
+    height: 2px;
+    
+}
+
+/*Links a*/
+.navbar-brand, .nav-item, .nav-link {
+    color: white;
+}
+
+
+.fondo {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imagen_producto {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

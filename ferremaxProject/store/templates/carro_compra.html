@@ -1,0 +1,154 @@
+{% load bootstrap5 %}
+{% load static %}
+{% load custom_filters %}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <title>Tu Carrito</title>
+
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/carro_compra-3.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
+
+</head>
+
+<style>
+
+   
+
+</style>
+<body>
+
+
+     <!-- NAV -->
+     <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+               <!--<img class="logo-ferremas" src="{% static  'images/logo-ferremas.png' %}" alt="">--> 
+               Ferremas
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
+                            <i class="fas fa-user"></i>
+                            Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro' %}">
+                            <i class="fas fa-user-plus"></i> 
+                            Crear cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
+                            Carro </a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+<!-- Fin NavBar-->
+    <br><br>
+    <div class="container">
+        <h1 class="mx-auto text-center">Carro de compras</h1>
+
+        <!-- Mostrar el total con descuento si hay uno -->
+
+        <h3 class="my-4 text-end">
+            <span>Total del Carrito: <span>Total del Carrito: ${{ total_carrito|currency }}</span> </span>
+            {% if descuento_aplicado %}
+               
+            {% endif %}
+             
+
+
+
+        </h3>
+        <div class="d-flex">
+          <a href="/compra_producto" class="btn-comprar ms-auto my-2 px-5">Comprar</a>
+      </div>
+              <br>
+        <br>
+
+   
+
+        <!-- Lista de productos en el carrito -->
+
+       
+
+        <ul class="carrito-lista">
+            {% for elemento in elementos %}
+            <li class="carrito-item">
+                <img src="{{ elemento.producto.imagen_producto.url }}" class="card-img-top productoIMG" alt="{{ elemento.producto.nombre_producto }}">
+
+                <div class="product-details">
+                    <h3>{{ elemento.producto.nombre_producto }}</h3>
+                    <p>{{ elemento.producto.descripcion_producto }}</p>
+                    <p>Precio: ${{ elemento.producto.precio_producto }}</p>
+                    <p>Cantidad: {{ elemento.cantidad }}</p>
+                    <!-- Formulario para modificar la cantidad -->
+                    <form method="post" action="{% url 'modificar_cantidad_carrito' elemento.id %}">
+                        {% csrf_token %}
+                  
+                        <input type="number" id="cantidad" name="cantidad" value="{{ elemento.cantidad }}" min="1" required>
+                        <button class="btn " type="submit">Actualizar</button>
+                    </form>
+                </div>
+                {% if messages %}
+                <div class="alert alert-primary">
+                    <ul>
+                        {% for message in messages %}
+                            <li >{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+
+                <!-- Enlace para eliminar del carrito -->
+                <a href="{% url 'eliminar_del_carrito' elemento.id %}" class="eliminar">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </li>
+            {% endfor %}
+
+            {% if elementos|length == 0 %}
+            <li class="carrito-item">
+                <h4>No hay productos en tu carrito</h4>
+            </li>
+            {% endif %}
+        </ul>
+
+        <a href="/" class="btn-comprar me-auto  px-5 ">Seguir comprando</a> <br><br><br>
+    </div>
+
+    {% bootstrap_javascript %}
+
+
+    <script>
+      setTimeout(function() {
+          const alert = document.querySelector('.alert');
+          if (alert) {
+              alert.classList.remove('show');
+              alert.classList.add('fade');
+          }
+      }, 1000); // Desaparece después de 5 segundos
+  </script>
+</body>
