@@ -17,6 +17,8 @@
 5. Instalar pilow si lo requiere
 ``` python -m pip install Pillow    ```
 
+6. Instalar jazzmin para el adminstador
+``` pip install -U django-jazzmin   ```
 
 
 # Codigo de migracion y inicio del proyecto
