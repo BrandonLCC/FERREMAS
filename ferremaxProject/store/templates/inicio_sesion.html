@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferremax</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
+
+</head>
+<body>
+ 
+    <!--<img src="{% static 'images/linkIMG' %}" class="imagen-fondo   w-100 " alt="...">-->
+<section class = "formulario-padre col-10 mx-auto">
+    <div class="fromulario-hijo col-12 mx-auto ">
+        <!--DIV 1-->
+        <div class="div-1 col-6 ms-auto">
+           
+        </div>
+        <!--DIV 2-->
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+            <!-- COMIENZO FORMULARIO -->
+             {% block content %}
+             
+             <form id="miFormulario" method="post" class="col-12">
+                 {% csrf_token %}
+                 
+                 <!-- Renderiza el formulario completo -->
+                 {{ form.as_p }}
+                 
+                 <!-- Botón de enviar -->
+                 <button type="submit" id="submit" class="btn btn-primary">Iniciar sesion</button>
+                 <a class="nav-link" href="{% url 'home' %}">Ir a la pagina principal</a>
+
+             </form>
+             {% endblock %}
+             
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
