@@ -19,3 +19,10 @@ class RegistroUsuarioForm(UserCreationForm):
     model = User
     fields = ['username','email','password1','password2']
     help_texts = {k:"" for k in fields }
+
+
+class CantidadProductoForm(forms.Form):
+    cantidad = forms.IntegerField(min_value=1, initial=1, label='Cantidad')
+
+class CantidadProductoForm(forms.Form):
+    cantidad = forms.IntegerField(min_value=1, label='Cantidad')

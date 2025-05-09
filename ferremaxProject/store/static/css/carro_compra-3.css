@@ -1,0 +1,151 @@
+* {
+}
+
+.navbar {
+
+    background-color: #191919;
+}
+
+.nav-des { 
+    background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
+    height: 2px;
+    
+}
+
+.logo-ferremas {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 1000px;
+}
+
+/*Links a*/
+.navbar-brand, .nav-item, .nav-link {
+    color: white;
+}
+
+
+.carousel-inner {
+    height: 500px;
+}
+
+.btn-comprar {
+    background-color: #c85321;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.btn-comprar:hover {
+    background-color: #c85321;
+    color: white;
+}
+
+.eliminar {
+    color: red;
+    font-size: 20px;
+}
+
+.eliminar:hover {
+    color: darkred;
+}
+
+.carrito-lista {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+.carrito-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
+.product-details {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+
+.product-details h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+
+.product-details p {
+    margin: 5px 0;
+}
+
+.product-details input[type="number"] {
+    width: 60px;
+    margin-right: 10px;
+}
+
+
+.product-details button {
+    background-color: #c85321;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.product-details button:hover {
+    background-color: #c85321;
+    color: white;
+}
+
+.productoIMG {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+
+.btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+
+.nav-des {
+    height: 5px;
+    background-color: #007bff;
+}
+
+
+.div-orden-productos {
+    margin: 20px 0;
+}
+
+
+.titulo-categoria {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+.sub-tititulo {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
