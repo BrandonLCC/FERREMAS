@@ -76,6 +76,20 @@
         </div>
     </div>
 
+    <section class="mx-auto col-11 mt-5">
+        <div class="text-center">
+        {% if estado == 'usuarioAutenticado' %}
+            <p class="">¡Bienvendido {{ user.username }}!</p>
+            <a class="mx-auto" href="">Cerrar sesión</a>
+        {% else %}
+            <p>Crea o inicia sesión para comprar nuestros productos. </p>
+            <a class="mx-auto" href="">Crear Cuenta</a>
+            <a class="mx-auto" href="">Iniciar sesion</a>
+
+        {% endif %}
+        </div>
+    </section>
+
     <br>
 
     <!--Seccion categorias -->
@@ -88,7 +102,7 @@
                 </h3>
             </div>
             <div class="sub-tititulo">
-                <p class="pt-3">¡Mira todas nuestras categorias disponibles!</p>
+                <p class="pt-3">Mira todas nuestras categorias disponibles</p>
             </div>
             
             <div class="slideContainer ">
@@ -131,6 +145,8 @@
     <script>                            const container = document.querySelector(".mainContainerCarouselFinal"); const slide = document.querySelector(".slideTemplate"); const prevBtn = document.querySelector(".controlerFinalCarousel div:nth-child(1)"); const nextBtn = document.querySelector(".controlerFinalCarousel div:nth-child(2)"); let nbclick = 0; const nbSlide = 10; const { style: containerStyle, getComputedStyle: getCS } = window; nextBtn.addEventListener("click", () => { if (nbclick < nbSlide - 1) { nbclick++; updateScroll(); } }); prevBtn.addEventListener("click", () => { if (nbclick > 0) { nbclick--; updateScroll(); } }); function updateScroll() { const screenWidth = parseInt(getCS(container).getPropertyValue("--screenWidth").replace("px", "")); const slideHeight = parseInt(getCS(slide).getPropertyValue("--slideHeight").replace("px", "")); const scrollAmount = ((screenWidth - (slideHeight + 40)) / 2) * nbclick; container.scroll({ left: scrollAmount, behavior: "smooth" }); }                            </script>
 
 
+   
+
     <!--Seccion Productos -->
 
     <div class="div-seccion  col-11 mx-auto my-5">
@@ -143,8 +159,8 @@
         
         <div class="div-orden-productos col-12 mx-auto row">
             {% for producto in productos %}
-            <div class="col-5 col-sm-4 col-md-3 col-xl-2 mx-auto ">
-                <div class="card mx-auto">
+            <div class="col-6 col-sm-4 col-md-3 col-xl-2 mx-auto ">
+                <div class="card mx-auto my-2">
                     {% if producto.imagen_producto %}
                     <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
                     {% endif %}

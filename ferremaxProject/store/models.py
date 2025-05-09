@@ -18,7 +18,7 @@ class Producto(models.Model):
     imagen_producto = models.ImageField(upload_to='producto/', null=True, blank=True)
     id_categoria = models.ForeignKey(Categorias,on_delete=models.CASCADE, default=0)#Sin categoria
     #id_almacen = models.ForeignKey(Almacenes, on_delete=models.CASCADE, default=1)
-
+ 
     def __str__(self):
         return self.nombre_producto    
 

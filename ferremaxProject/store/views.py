@@ -3,13 +3,22 @@ from django.contrib import messages
 from .models import Producto, Categorias, Usuario ,Carrito, ElementoCarrito
  
 from django.contrib.auth.decorators import login_required
-from .form import  CantidadProductoForm, RegistroUsuarioForm
+from .form import *
 from django.shortcuts import get_object_or_404
+
 
 # Create your views here.
 def home(request):
-    productos = Producto.objects.select_related().all()[:5]
-    return render(request, 'index.html', {'productos':productos} )
+    productos = Producto.objects.select_related('id_categoria').all()[:6]
+    
+    user = request.user
+
+    if user.is_active:
+        estado = 'usuarioAutenticado'
+    else:
+        estado = 'false'
+
+    return render(request, 'index.html' ,{'productos': productos,'estado':estado})
 
 def listaProductos(request):
     categoria = request.GET.get('id_categoria', '')  
@@ -148,10 +157,4 @@ def registro_usuario(request):
     else:
         form = RegistroUsuarioForm()
 
-    context = { 'form' : form }
-    return render(request, 'registro_usuario.html',context )
-
-
-def inicio_sesion(request):
-    return render(request, 'inicio_sesion.html', )
-
+    return render(request, 'registro_usuario.html',{ 'form' : form } )
