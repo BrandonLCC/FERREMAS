@@ -25,7 +25,7 @@ urlpatterns = [
     path('', include('store.urls')),
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),  # Añadir esta línea
-    
+      path('store/', include('store.urls')),
 ]
 
 if settings.DEBUG:
