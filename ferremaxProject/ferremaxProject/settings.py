@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap5',
     'store',
+    'rest_framework',
 ]
 
 JAZZMIN_SETTINGS = {
@@ -284,3 +285,10 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Carpeta para archivos de medios (subidos)
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',  # Para vista navegable en el navegador
+    ],
+}
