@@ -20,6 +20,11 @@
 6. Instalar jazzmin para el adminstador
 ``` pip install -U django-jazzmin   ```
 
+----------------------------------------
+
+7 Instalar djangorestframework
+``` pip install djangorestframework ``` 
+
 
 # Codigo de migracion y inicio del proyecto
 
