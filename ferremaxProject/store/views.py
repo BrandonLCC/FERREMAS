@@ -133,11 +133,6 @@ def modificar_cantidad_carrito(request, elemento_id):
 
     return redirect('carro_compra')
 
-
-
-
-
-
 def registro_usuario(request):
     if request.method == 'POST':
             form = RegistroUsuarioForm(request.POST)
@@ -158,3 +153,7 @@ def registro_usuario(request):
         form = RegistroUsuarioForm()
 
     return render(request, 'registro_usuario.html',{ 'form' : form } )
+
+
+def Compra_Producto(request):
+    return render(request, 'compra_producto.html')
