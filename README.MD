@@ -58,3 +58,15 @@ ENV/
 .env/
 ```
 
+## Proceso de integración de WebPay 
+
+1. Creación del template compra_producto.html
+2. Creacion de la views Compra_Producto 
+3. Creacion de la url 
+
+- Se requiere Crear el modelo de compras para almacenar los registros de los usuarios
+
+4. Creacion del archivo .py para la integracion .. 
+
+5. Instalación del SDK 
+``` pip install transbank-sdk   ```

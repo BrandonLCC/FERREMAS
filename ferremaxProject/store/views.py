@@ -155,5 +155,8 @@ def registro_usuario(request):
     return render(request, 'registro_usuario.html',{ 'form' : form } )
 
 
+def Metodo_envio(request):
+    return render(request, 'metodo_envio.html') 
+
 def Compra_Producto(request):
-    return render(request, 'compra_producto.html')
+    return render(request, 'compra_producto.html') 
