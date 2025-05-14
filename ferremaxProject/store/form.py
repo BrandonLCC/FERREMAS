@@ -30,3 +30,12 @@ class CantidadProductoForm(forms.Form):
 
 class CantidadProductoForm(forms.Form):
     cantidad = forms.IntegerField(min_value=1, label='Cantidad')
+
+
+    from django import forms
+
+class MetodoEntregaForm(forms.Form):
+    tipo_envio = forms.ChoiceField(choices=[('domicilio', 'Envío a domicilio'), ('tienda', 'Retiro en tienda')], widget=forms.RadioSelect)
+    region = forms.CharField(required=False)
+    ciudad = forms.CharField(required=False)
+    sede = forms.ChoiceField(choices=[('tienda 1 - Santiago', 'tienda 1 - Santiago'), ('tienda 2 - Viña del Mar', 'tienda 2 - Viña del Mar')], required=False)

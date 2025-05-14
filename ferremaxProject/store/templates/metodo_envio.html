@@ -1,71 +1,141 @@
 <!DOCTYPE html>
 {% load static %}
-
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferremas</title>
-
+    <title>Ferremas - Método de Envío</title>
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
-    <link rel="stylesheet" href="{% static 'css/style-8.css' %}">
-    <!--Iconos-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% load custom_filters %}
 
+
+    <link rel="stylesheet" href="{% static 'css/style-8.css' %}">
+    <link rel="stylesheet" href="{% static 'css/metodo_envio.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        
+    </style>
 </head>
 
 <body>
     <!-- NAV -->
     <nav class="navbar navbar-expand-lg">
-
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <!--<img class="logo-ferremas" src="{% static  'images/logo-ferremas.png' %}" alt="">-->
-                Ferremas
-
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">Ferremas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
-                            <i class="fas fa-user"></i>
-                            Iniciar sesión</a>
+                        <a class="nav-link active" href="{% url 'inicio_sesion' %}"><i class="fas fa-user"></i> Iniciar sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registro' %}">
-                            <i class="fas fa-user-plus"></i>
-                            Crear cuenta</a>
+                        <a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Crear cuenta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'carro_compra' %}">
-                            <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
-                            Carro </a>
+                        <a class="nav-link" href="{% url 'carro_compra' %}"><i class="fas fa-shopping-cart"></i> Carro</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
 
-    <p>pagina de seleccion metodo de envio</p>
+    <!-- Contenedor principal -->
+    <div class="container mt-4">
+        <h1 class="text-center">Seleccione la forma de Envío</h1>
+        <div class="contenedor">
+            <!-- Opciones de Envío -->
+            <div class="envio-opciones">
+                <form method="POST">
+                    {% csrf_token %}
 
-    <a  href="{% url 'iniciar_pago' %}">
-        <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
-        Realizar metodo de pago </a>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="metodo_envio" id="envio_domicilio" value="5000" checked>
+                        <label class="form-check-label" for="envio_domicilio">
+                            Envío a domicilio (CLP 5,000)
+                        </label>
+                    </div>
+                    <div id="opciones-domicilio" va class="mt-3">
+                        <div class="mb-2">
+                            <label for="region" class="form-label">Región</label>
+                            <input type="text" class="form-control" id="region" name="region" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" required>
+                        </div>
+                    </div>
 
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="radio" name="metodo_envio" id="retiro_tienda" value="0">
+                        <label class="form-check-label" for="retiro_tienda">
+                            Retiro en tienda (Gratis)
+                        </label>
+                    </div>
+                    <div id="opciones-tienda" class="mt-3" style="display: none;">
+                        <p><strong>Dirección de la tienda:</strong><br>sede metropolitana</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">
+                        <i class="fas fa-check"></i> Confirmar método de envío
+                    </button>
+                </form>
+            </div>
+
+            <!-- Resumen de Pago -->
+            <div class="resumen-pago">
+                <h4>Resumen de Pago</h4>
+                <p>Subtotal del producto: CLP <span id="subtotal">${{ total_carrito|floatformat:0  }}  </span></p>
+                <p>Costo de envío: CLP <span id="costo-envio">5.000</span></p>
+
+                <!-- if  si es retiro se agrega total_carrito o si no total_con_envio -->
+               <p>Total a pagar: CLP <span >${{ total_con_envio|currency }}</span></p>
+                
+
+               
+             
+                <a href="{% url 'comprar_producto' %}" class="btn btn-primary w-100 mt-2">
+                    <i class="fas fa-shopping-cart"></i> Proceder al pago
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para mostrar/ocultar campos según selección -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const envioDomicilio = document.getElementById('envio_domicilio');
+            const retiroTienda = document.getElementById('retiro_tienda');
+            const opcionesDomicilio = document.getElementById('opciones-domicilio');
+            const opcionesTienda = document.getElementById('opciones-tienda');
+            const costoEnvio = document.getElementById('costo-envio');
+            const totalPago = document.getElementById('total-pago');
+      
+            
+
+            function actualizarResumen() {
+                const valor = envioDomicilio.checked ? 5000 : 0;
+                costoEnvio.textContent = valor.toLocaleString('es-CL');
+                totalPago.textContent = (subtotal + valor).toLocaleString('es-CL');
+                opcionesDomicilio.style.display = envioDomicilio.checked ? 'block' : 'none';
+                opcionesTienda.style.display = retiroTienda.checked ? 'block' : 'none';
+            }
+
+            envioDomicilio.addEventListener('change', actualizarResumen);
+            retiroTienda.addEventListener('change', actualizarResumen);
+
+            actualizarResumen(); // Ejecutar al cargar
+        });
+    </script>
 </body>
-
 </html>

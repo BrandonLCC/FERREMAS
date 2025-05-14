@@ -48,3 +48,31 @@ class ElementoCarrito(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
 
+
+#ver total de la compra con la suma de envio
+class Envio(models.Model):
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
+    costo_envio = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    fecha_envio = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Envio para {self.carrito.usuario.username} - Costo: {self.costo_envio}"
+
+
+
+# metodo de envio
+class MetodoEntrega(models.Model):
+    OPCIONES_ENVIO = [
+        ('domicilio', 'Envío a domicilio'),
+        ('tienda', 'Retiro en tienda'),
+    ]
+
+    carrito = models.OneToOneField(Carrito, on_delete=models.CASCADE)
+    tipo_envio = models.CharField(max_length=20, choices=OPCIONES_ENVIO)
+    costo = models.PositiveIntegerField(default=0)
+    region = models.CharField(max_length=100, blank=True, null=True)
+    ciudad = models.CharField(max_length=100, blank=True, null=True)
+    sede = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.carrito} - {self.get_tipo_envio_display()}"
