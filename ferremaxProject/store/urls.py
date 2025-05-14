@@ -23,8 +23,12 @@ urlpatterns = [
     path('agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
     path('eliminar_del_carrito/<int:elemento_id>/', views.eliminar_del_carrito, name='eliminar_del_carrito'),
     path('carro/modificar/<int:elemento_id>/', views.modificar_cantidad_carrito, name='modificar_cantidad_carrito'),
+    #Metodo de envio
     path('metodo_envio/', views.Metodo_envio, name='metodo_envio'),
-    path('compra_producto/', views.Compra_Producto, name='comprar_producto'),
+    #Pago
+    path('iniciar_pago/', views.Iniciar_pago, name='iniciar_pago'),
+    path('resultado_pago/', views.Resultado_pago, name='resultado_pago'),
+
     #api rest
     path('api/', include(router.urls)),
  

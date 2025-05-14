@@ -5,6 +5,13 @@ from .models import Producto, Categorias, Usuario ,Carrito, ElementoCarrito
 from django.contrib.auth.decorators import login_required
 from .form import *
 from django.shortcuts import get_object_or_404
+#Importacion de rest
+from rest_framework.response import Response
+#Importacion webpay
+from transbank.webpay.webpay_plus.transaction import Transaction, WebpayOptions
+from transbank.common.integration_api_keys import IntegrationApiKeys #sacada de github
+from transbank.common.integration_commerce_codes import IntegrationCommerceCodes  #sacada  del github
+from transbank.common.integration_type import IntegrationType #para poder integrar tipo de transaccion test
 
 
 # Create your views here.
@@ -158,5 +165,25 @@ def registro_usuario(request):
 def Metodo_envio(request):
     return render(request, 'metodo_envio.html') 
 
-def Compra_Producto(request):
-    return render(request, 'compra_producto.html') 
+#Por realizar
+def Iniciar_pago(request):
+    #Codigo integracion, Key test, Modo = test 
+    tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS,
+                                    IntegrationApiKeys.WEBPAY, 
+                                    IntegrationType.TEST
+                                    
+                                    ))
+    #Simulacion de datos
+    buy_order = "ejemplo100"# Este número debe ser único para cada transacción.
+    session_id = "sesionejemplo123" #este valor es devuelto al final de la transacción. 
+    amount = 100 #Monto de la transacción. Máximo 2 decimales para USD. 
+    #Datos de la orden
+    return_url = "http://127.0.0.1:8000/store/resultado_pago/" #url luego del proceso de pago 
+    #Funcion create que recibe los datos de la orden
+    resp = tx.create(buy_order, session_id, amount, return_url)
+
+    return redirect(f"{resp['url']}?token_ws={resp['token']}")
+
+#Por ralizar
+def Resultado_pago(request):
+    return render(request, 'resultado_pago.html') 

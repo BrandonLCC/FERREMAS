@@ -61,9 +61,12 @@
     </nav>
 
 
-    <a href="{% url '...' %}">
-        <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
-        Seleccionar metodo de envio</a>
+    <form method="post" action="Inserta aquí la url entregada">
+        <input type="hidden" name="token_ws" value="Inserte aquí el token entregado" />
+        <input type="submit" value="Ir a pagar" />
+
+    </form>
+        
 </body>
 
 </html>
