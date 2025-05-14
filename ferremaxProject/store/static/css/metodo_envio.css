@@ -1,0 +1,90 @@
+.navbar {
+
+    background-color: #191919;
+}
+
+.nav-des { 
+    background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
+    height: 2px;
+    
+}
+
+.logo-ferremas {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 1000px;
+}
+
+/*Links a*/
+.navbar-brand, .nav-item, .nav-link {
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.contenedor {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-top: 40px;
+}
+.envio-opciones {
+background: #d8b859;
+padding: 30px;
+border-radius: 8px;
+border-color: black;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.opcion-envio {
+    padding: 25px;
+    margin-bottom: 25px;
+
+}
+.titulo-entrega {
+    font-size: 28px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+.opcion-titulo {
+    font-size: 18px;
+}
+.direccion-actual, .direccion-vendedor {
+    margin-top: 15px;
+    margin-left: 30px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.resumen-pago {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+    }
+.resumen-pago h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.resumen-pago p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.btn-continuar {
+padding: 15px;
+font-size: 18px;
+margin-top: 30px;
+}
+@media (max-width: 768px) {
+            .contenedor {
+                grid-template-columns: 1fr;
+            }
+            .resumen-pago {
+                position: static;
+            }
+        }

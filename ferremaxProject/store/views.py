@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Producto, Categorias, Usuario ,Carrito, ElementoCarrito
+from .models import MetodoEntrega, Producto, Categorias, Usuario ,Carrito, ElementoCarrito
  
 from django.contrib.auth.decorators import login_required
 from .form import *
@@ -156,7 +156,56 @@ def registro_usuario(request):
 
 
 def Metodo_envio(request):
-    return render(request, 'metodo_envio.html') 
+   # Asegúrate de que esto retorne un número (no string)
+    carrito = get_object_or_404(Carrito, usuario=request.user)
+    elementos = ElementoCarrito.objects.filter(carrito=carrito)
+    total_carrito = 0
+    for elemento in elementos:
+        elemento.total = elemento.producto.precio_producto * elemento.cantidad
+        total_carrito += elemento.total
+
+    costo_envio = 5000 
+
+   
+    # Calcular el total con envío
+    total_con_envio = total_carrito + costo_envio
+  
+    return render(request, 'metodo_envio.html' , {
+                            'elementos': elementos,
+                            'total_carrito': total_carrito,
+                            'costo_envio': costo_envio,
+                            'total_con_envio': total_con_envio,}
+                  )
 
 def Compra_Producto(request):
     return render(request, 'compra_producto.html') 
+
+
+
+def seleccionar_metodo_envio(request):
+    if request.method == 'POST':
+        metodo_envio = request.POST.get('metodo_envio')
+
+        if metodo_envio == '5000':  # Envío a domicilio
+            region = request.POST.get('region')
+            ciudad = request.POST.get('ciudad')
+            direccion = request.POST.get('direccion')
+            # Aquí puedes hacer lo que necesites: guardar en sesión, base de datos, etc.
+            request.session['envio'] = {
+                'tipo': 'domicilio',
+                'region': region,
+                'ciudad': ciudad,
+                'direccion': direccion,
+                'costo': 5000,
+            }
+        else:  # Retiro en tienda
+            request.session['envio'] = {
+                'tipo': 'tienda',
+                'direccion': 'sede metropolitana',
+                'region': 'metropolitana',
+                'costo': 0,
+            }
+
+        return redirect('confirmar_pago')  # o donde continues tu flujo
+
+    return redirect('carrito')  # en caso de acceso directo sin POST
