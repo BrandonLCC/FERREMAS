@@ -20,11 +20,12 @@
 6. Instalar jazzmin para el adminstador
 ``` pip install -U django-jazzmin   ```
 
-----------------------------------------
-
-7 Instalar djangorestframework
+7. Instalar djangorestframework
 ``` pip install djangorestframework ``` 
 
+8. Instalar transbank-sdk para el uso de WebPay
+
+``` pip install transbank-sdk   ```
 
 # Codigo de migracion y inicio del proyecto
 
@@ -58,15 +59,13 @@ ENV/
 .env/
 ```
 
-## Proceso de integración de WebPay 
+## Proceso de integración de WebPay  (actualizado 14-05)
 
-1. Creación del template compra_producto.html
-2. Creacion de la views Compra_Producto 
-3. Creacion de la url 
+- RECORDATORIO: Instalación del SDK 
 
-- Se requiere Crear el modelo de compras para almacenar los registros de los usuarios
-
-4. Creacion del archivo .py para la integracion .. 
-
-5. Instalación del SDK 
 ``` pip install transbank-sdk   ```
+
+1. Creación del template iniciar_pago.html y resultado_pago.html (para proxima entrega, realizar pago fallido y crear un template en donde vuelva a realizar el pago)
+2. Creacion de la views Iniciar_pago y Resultado_pago para redireccionar a la pagina una vez realizado el pago  
+3. Creacion de la urls 
+4. (Por realizar): Se requiere Crear el modelo de compras para almacenar los registros de los usuarios
