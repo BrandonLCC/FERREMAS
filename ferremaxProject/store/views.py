@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import MetodoEntrega, Producto, Categorias, Usuario ,Carrito, ElementoCarrito
- 
 from django.contrib.auth.decorators import login_required
 from .form import *
 from django.shortcuts import get_object_or_404

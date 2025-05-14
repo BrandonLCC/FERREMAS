@@ -80,11 +80,11 @@
         <div class="text-center">
         {% if estado == 'usuarioAutenticado' %}
             <p class="">¡Bienvendido {{ user.username }}!</p>
-            <a class="mx-auto" href="">Cerrar sesión</a>
+            <a class="mx-auto" href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
         {% else %}
             <p>Crea o inicia sesión para comprar nuestros productos. </p>
-            <a class="mx-auto" href="">Crear Cuenta</a>
-            <a class="mx-auto" href="">Iniciar sesion</a>
+            <a class="mx-auto" href="{% url 'registro' %}">Crear Cuenta</a>
+            <a class="mx-auto" href="{% url 'inicio_sesion' %}">Iniciar sesion</a>
 
         {% endif %}
         </div>

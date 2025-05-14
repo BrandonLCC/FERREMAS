@@ -15,7 +15,11 @@ router.register(r'elementos', ElementoCarritoViewSet)
 urlpatterns = [
     path('', views.home, name='home'),
     path('registro/', views.registro_usuario, name='registro'),
+    #Login
     path('inicio_sesion/', LoginView.as_view(template_name='inicio_sesion.html'), name='inicio_sesion'),
+    #Logout
+    path('cerrar_sesion/', LogoutView.as_view(template_name='cerrar_sesion.html'), name='cerrar_sesion'),
+
     path('productos/', views.listaProductos, name='lista_productos'),
     path('producto/<int:pk>/', views.detalle_productos, name='detalle_productos'),
     #carrito de compra
@@ -27,7 +31,7 @@ urlpatterns = [
     path('metodo_envio/', views.Metodo_envio, name='metodo_envio'),
     #Pago
     path('iniciar_pago/', views.Iniciar_pago, name='iniciar_pago'),
-    path('resultado_pago/', views.Resultado_pago, name='resultado_pago'),
+    path('Resultado_pago/', views.Resultado_pago, name='resultado_pago'),
 
     #api rest
     path('api/', include(router.urls)),
