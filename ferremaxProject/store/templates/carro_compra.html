@@ -2,7 +2,6 @@
 {% load static %}
 {% load custom_filters %}
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,26 +14,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/carro_compra-3.css' %}">
     <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
-
 </head>
 
 <style>
+    .carrito-lista {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-   
+    .carrito-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+    }
 
+    .product-details {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+
+    .productoIMG {
+        width: 100px;
+        height: auto;
+    }
+
+    .btn-comprar {
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .btn-comprar:hover {
+        background-color: #0056b3;
+        color: white;
+    }
 </style>
+
 <body>
-
-
-     <!-- NAV -->
-     <nav class="navbar navbar-expand-lg">
-
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-               <!--<img class="logo-ferremas" src="{% static  'images/logo-ferremas.png' %}" alt="">--> 
-               Ferremas
-
-            </a>
+            <a class="navbar-brand" href="#">Ferremas</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,18 +66,18 @@
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
-                            <i class="fas fa-user"></i>
-                            Iniciar sesión</a>
+                            <i class="fas fa-user"></i> Iniciar sesión
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'registro' %}">
-                            <i class="fas fa-user-plus"></i> 
-                            Crear cuenta</a>
+                            <i class="fas fa-user-plus"></i> Crear cuenta
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">
-                            <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
-                            Carro </a>
+                            <i class="fas fa-shopping-cart"></i> Carro
+                        </a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -64,94 +87,79 @@
             </div>
         </div>
     </nav>
-<!-- Fin NavBar-->
+    <!-- Fin NavBar-->
+
     <br><br>
     <div class="container">
         <h1 class="mx-auto text-center">Carro de compras</h1>
 
-        <!-- Mostrar el total con descuento si hay uno -->
+        <!-- ✅ Mensajes fuera del bucle -->
+     {% if messages %}
+    <div class="alert alert-primary p-2 mb-3">
+        {% for message in messages %}
+            <div class="mb-0">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
 
         <h3 class="my-4 text-end">
-            <span>Total del Carrito: <span>Total del Carrito: ${{ total_carrito|currency }}</span> </span>
-            {% if descuento_aplicado %}
-               
-            {% endif %}
-             
-
- 
-
+            <span>Total del Carrito: ${{ total_carrito|currency }}</span>
         </h3>
+
         <div class="d-flex">
-          <a href="{% url 'metodo_envio' %}" class="btn-comprar ms-auto my-2 px-5">Comprar</a>
+            <a href="{% url 'metodo_envio' %}" class="btn-comprar ms-auto my-2 px-5">Comprar</a>
+        </div>
 
-
-
-      </div>
-              <br>
-        <br>
-
-   
+        <br><br>
 
         <!-- Lista de productos en el carrito -->
-
-       
-
         <ul class="carrito-lista">
             {% for elemento in elementos %}
-            <li class="carrito-item">
-                <img src="{{ elemento.producto.imagen_producto.url }}" class="card-img-top productoIMG" alt="{{ elemento.producto.nombre_producto }}">
+                <li class="carrito-item">
+                    <img src="{{ elemento.producto.imagen_producto.url }}" class="card-img-top productoIMG" alt="{{ elemento.producto.nombre_producto }}">
 
-                <div class="product-details">
-                    <h3>{{ elemento.producto.nombre_producto }}</h3>
-                    <p>{{ elemento.producto.descripcion_producto }}</p>
-                    <p>Precio: ${{ elemento.producto.precio_producto }}</p>
-                    <p>Cantidad: {{ elemento.cantidad }}</p>
-                    <!-- Formulario para modificar la cantidad -->
-                    <form method="post" action="{% url 'modificar_cantidad_carrito' elemento.id %}">
-                        {% csrf_token %}
-                  
-                        <input type="number" id="cantidad" name="cantidad" value="{{ elemento.cantidad }}" min="1" required>
-                        <button class="btn " type="submit">Actualizar</button>
-                    </form>
-                </div>
-                {% if messages %}
-                <div class="alert alert-primary">
-                    <ul>
-                        {% for message in messages %}
-                            <li >{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-            
+                    <div class="product-details">
+                        <h3>{{ elemento.producto.nombre_producto }}</h3>
+                        <p>{{ elemento.producto.descripcion_producto }}</p>
+                        <p>Precio: ${{ elemento.producto.precio_producto }}</p>
+                        <p>Cantidad: {{ elemento.cantidad }}</p>
 
-                <!-- Enlace para eliminar del carrito -->
-                <a href="{% url 'eliminar_del_carrito' elemento.id %}" class="eliminar">
-                    <i class="fa fa-trash"></i>
-                </a>
-            </li>
+                        <!-- Formulario para modificar la cantidad -->
+                        <form method="post" action="{% url 'modificar_cantidad_carrito' elemento.id %}">
+                            {% csrf_token %}
+                            <input type="number" id="cantidad" name="cantidad" value="{{ elemento.cantidad }}" min="1" required>
+                            <button class="btn" type="submit">Actualizar</button>
+                        </form>
+                    </div>
+
+                    <!-- Enlace para eliminar del carrito -->
+                    <a href="{% url 'eliminar_del_carrito' elemento.id %}" class="eliminar">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </li>
             {% endfor %}
 
             {% if elementos|length == 0 %}
-            <li class="carrito-item">
-                <h4>No hay productos en tu carrito</h4>
-            </li>
+                <li class="carrito-item">
+                    <h4>No hay productos en tu carrito</h4>
+                </li>
             {% endif %}
         </ul>
 
-        <a href="/" class="btn-comprar me-auto  px-5 ">Seguir comprando</a> <br><br><br>
+        <a href="/" class="btn-comprar me-auto px-5">Seguir comprando</a>
+        <br><br><br>
     </div>
 
     {% bootstrap_javascript %}
 
-
     <script>
-      setTimeout(function() {
-          const alert = document.querySelector('.alert');
-          if (alert) {
-              alert.classList.remove('show');
-              alert.classList.add('fade');
-          }
-      }, 1000); // Desaparece después de 5 segundos
-  </script>
+        setTimeout(function() {
+            const alert = document.querySelector('.alert');
+            if (alert) {
+                alert.classList.remove('show');
+                alert.classList.add('fade');
+            }
+        }, 1000);
+    </script>
 </body>
+</html>

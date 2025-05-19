@@ -132,7 +132,7 @@ def modificar_cantidad_carrito(request, elemento_id):
             else:
                 elemento.cantidad = cantidad
                 elemento.save()
-                messages.success(request, 'Cantidad actualizada correctamente.')
+                messages.success(request, 'Cantidad actualizada correctamente en el carrito de compra.')
                 return redirect('carro_compra')
     else:
         form = CantidadProductoForm(initial={'cantidad': elemento.cantidad})
