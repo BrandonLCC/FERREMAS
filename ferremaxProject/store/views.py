@@ -184,18 +184,23 @@ def Metodo_envio(request):
                   )
 
 #Por realizar
-def Iniciar_pago(request):
+def Iniciar_pago(request,montoPedido):
     #Codigo integracion, Key test, Modo = test 
     tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS,
                                     IntegrationApiKeys.WEBPAY, 
                                     IntegrationType.TEST
                                     
                                     ))
+    
+    montoPedido = 1000
+    
     #Simulacion de datos
     buy_order = "ejemplo100"# Este número debe ser único para cada transacción.
     session_id = "sesionejemplo123" #este valor es devuelto al final de la transacción. 
-    amount = 100 #Monto de la transacción. Máximo 2 decimales para USD. 
+    amount = montoPedido #Monto de la transacción. Máximo 2 decimales para USD. 
     #Datos de la orden
+
+
     return_url = "http://127.0.0.1:8000/store/resultado_pago/" #url luego del proceso de pago 
     #Funcion create que recibe los datos de la orden
     resp = tx.create(buy_order, session_id, amount, return_url)

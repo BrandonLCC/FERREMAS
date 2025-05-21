@@ -1,15 +1,16 @@
 * {
 }
 
-.navbar {
-
-    background-color: #191919;
-}
-
-.nav-des { 
-    background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
-    height: 2px;
+:root {
+    --color-seleccion: rgb(203, 203, 203);
+    --color-navbar: #191919;
+    --Color-primario: #ab1535 ;
+    --color-secundario:  #8a102b;
     
+}
+.navbar {
+    background: linear-gradient(85deg, #8a102b ); 
+    background-color: #641414;
 }
 
 .logo-ferremas {
@@ -24,16 +25,58 @@
     color: white;
 }
 
+.link-diseño-nav {
+    background-color: #ab1535 ;
+    border: 1px solid #940121;
+    margin-left: 8px;
+    border-radius: 10px;
+}
+
+.link-diseño-nav:hover {
+    color: #191919;
+    background-color:#d2294e;
+    border: 1px solid #aa0428;
+
+}
+
+
+
+.navbar-brand, .nav-item, .nav-link {
+    color: white;
+}
+
+.nav-icons {
+    position: relative;
+    margin: 2px;
+    top: 1px;
+}
+
+
+.nav-autenticacion-1 {
+    position: relative;
+    top: 9px;
+    color: #74ff39;
+    cursor: default;
+}
+
+.nav-autenticacion-2 {
+    position: relative;
+    top: 9px;
+    color: #ff3939;
+    cursor: default;
+
+}
+
+.cantidad-carro-nav  {
+    position: relative;
+}
 
 
 .carousel-inner {
     height: 500px;
 }
 
-:root {
- --color-seleccion: rgb(203, 203, 203);
-    
-}
+
 
 /* ROOT DE LA CATEGORIA */
 :root {
@@ -259,24 +302,19 @@
 
 .btn-principal {
     position: relative;
-    background: linear-gradient(85deg, #ff3939, #ff6d44, #ffd000); 
+    background-color: var(--Color-primario); 
     text-decoration: none;
     color: white;
-    text-shadow: 0px 0px 5px #ffd000;
     transition: all 0.6s ease-in-out; 
-    padding: 6px;
-
+    padding: 8px;
 }
 
 
 
 .btn-principal:hover {
-    background-color: #ff3939;
-    color: rgb(253, 255, 186);
-    text-shadow: 0px 0px 10px #ffeb93;
+    background-color: var(--color-secundario);
+    color: white;
     border-radius: 5px;
-    
-   
 }
 
 .div-titulo-categoria {
@@ -297,7 +335,7 @@
 }
 
 .titulo-producto {
-    background: linear-gradient(80deg, #ff3939,#ff3939,#ff3939, #ff6d44, #ffd000); 
+    background-color: var(--color-secundario); 
     padding: 5px;
     margin-bottom: 20px;
     border-top-left-radius: 10px;
@@ -317,5 +355,24 @@
 }
 
 
-.div-orden-productos {
+
+footer {
+    margin-top: 500px;
+    background-color: #262929;
+    color: white;
+}
+
+.link-color-f, .list-unstyled,.text-body  {
+    color: white;
+}
+
+
+footer {
+
+    background-color: var(--Color-primario);
+}
+
+.footer-final {
+
+    background-color: var(--color-secundario);
 }
