@@ -28,13 +28,13 @@
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Logo empresa -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <a class="navbar-brand mt-2 mt-lg-0"  href="{% url 'home' %}">
           <img src="{% static  'images/logo-ferremas.png' %}" height="40" alt="MDB Logo" loading="lazy" />
         </a>
         <!-- links derechos -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="link-diseño-nav nav-link" href="#">
+            <a class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
               <i class="nav-icons fas fa-check-circle"></i>
               Mis compras
             </a>

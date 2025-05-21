@@ -32,6 +32,8 @@ urlpatterns = [
     #Pago
     path('iniciar_pago/', views.Iniciar_pago, name='iniciar_pago'),
     path('resultado_pago/', views.Resultado_pago, name='resultado_pago'),
+    #URLs despues del pago
+    path('compras_usuario/', views.Compras_usuario, name='compras_usuario'),
 
     #api rest
     path('api/', include(router.urls)),

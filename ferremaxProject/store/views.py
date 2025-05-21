@@ -212,6 +212,11 @@ def Resultado_pago(request):
     return render(request, 'resultado_pago.html') 
 
 
+def Compras_usuario(request):
+    return render(request, 'compras_usuario.html') 
+
+
+
 
 def seleccionar_metodo_envio(request):
     if request.method == 'POST':
