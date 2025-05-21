@@ -1,99 +1,128 @@
 <!DOCTYPE html>
 {% load static %}
-
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ferremax</title>
-
+    <title>Ferremax - Detalle Producto</title>
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
     <link rel="stylesheet" href="{% static 'css/detalle-producto.css' %}">
-    <!--Iconos-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
 
+        .producto-detalle-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .imagen_producto {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            object-fit: cover;
+
+            /* agregar borde oscuro */
+            border: 2px solid #343a40;
+        }
+
+        .nom_producto {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .precio_producto {
+            font-size: 1.5rem;
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .descripcion_producto {
+            font-size: 1rem;
+            margin-top: 1rem;
+            color: #555;
+        }
+
+        .btn-agregar {
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .formulario-compra {
+            border-top: 1px solid #ddd;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+        }
+    </style>
 </head>
 
-<style>
-
-
-
-</style>
 <body>
+
     <!-- NAV -->
-    <nav class="navbar navbar-expand-lg">
-
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-               <!--<img class="logo-ferremas" src="{% static  'images/logo-ferremas.png' %}" alt="">--> 
-               Ferremas
-
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg" >
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Ferremax</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
-                            <i class="fas fa-user"></i>
-                            Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registro' %}">
-                            <i class="fas fa-user-plus"></i> 
-                            Crear cuenta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">
-                            <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
-                            Carro </a>
-                    </li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'inicio_sesion' %}"><i class="fas fa-user"></i> Iniciar sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Crear cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-shopping-cart"></i> Carro</a></li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input class="form-control me-2" type="search" placeholder="Buscar productos..." />
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
             </div>
         </div>
     </nav>
 
-    <!--Seccion Productos -->
+    <!-- texto para regresar atra -->
 
-    <br><br><br>
-    <section class=" fondo col-11  mx-auto d-flex">        
-        <div class="div-orden-productos col-6">
-            <div class="col-6 mx-auto">
-                    {% if producto.imagen_producto %}
-                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top imagen_producto" alt="{{ producto.nombre_producto }}">
-                    {% endif %}
+    <div class="container mt-3">
+        <a href="{% url 'home' %}" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </a>
+    <!-- Detalle Producto -->
+    <div class="container mt-5 mb-5">
+        <div class="row producto-detalle-container">
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                {% if producto.imagen_producto %}
+                <img src="{{ producto.imagen_producto.url }}" class="imagen_producto" alt="{{ producto.nombre_producto }}">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <p class="nom_producto">{{ producto.nombre_producto }}</p>
+                <p class="precio_producto">${{ producto.precio_producto }}</p>
+                <p class="descripcion_producto">{{ producto.descripcion_producto }}</p>
+                <p class="descripcion_producto">codigo: {{ producto.codigo_producto }}</p>
+            
+
+                <div class="formulario-compra">
+                    <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary btn-agregar">
+                            <i class="fas fa-cart-plus"></i> Agregar al Carro
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <div class="col-6">
-            <p>{{ producto.nombre_producto }}</p>
-            <p>{{ producto.descripcion_producto }}</p>
-            <p>{{ producto.precio_producto }}</p>
-            <div>
-                <form action="{% url 'agregar_al_carrito' producto.id %}" method="post" class="mt-3 py-5 text-center">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">
-                        Agregar al Carro
-                        <i class="fas fa-shopping-cart"></i> <!-- icon carro -->
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
+    </div>
 
 </body>
-
 </html>

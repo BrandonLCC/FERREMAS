@@ -10,10 +10,13 @@ class ProductAdmin(admin.ModelAdmin):
         'precio_producto',
         'cantidad_producto',
         'creacion_producto', 
-        'imagen_producto'
+        'imagen_producto',
+        'codigo_producto'
     )
     search_fields = ('nombre_producto', 'descripcion_producto')
     list_filter = ('creacion_producto',)
+    readonly_fields = ('codigo_producto',)
+    
 
     # 🛠 Habilitar campos editables en el formulario
     fields = (
@@ -24,6 +27,7 @@ class ProductAdmin(admin.ModelAdmin):
         'creacion_producto',
         'imagen_producto',
         'id_categoria',
+        'codigo_producto'
     )
 @admin.register(Categorias)
 class CategoriaAdmin(admin.ModelAdmin):
