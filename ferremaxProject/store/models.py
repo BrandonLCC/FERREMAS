@@ -1,3 +1,5 @@
+import random
+import string
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -10,15 +12,22 @@ class Categorias(models.Model):
         return self.nombre_categoria    
 
 class Producto(models.Model):
-    nombre_producto = models.CharField(max_length = 50)
+    nombre_producto = models.CharField(max_length=50)
     descripcion_producto = models.TextField()
     precio_producto = models.IntegerField()
-    cantidad_producto = models.IntegerField(default=0)  
-    creacion_producto = models.DateTimeField(auto_now_add=True)
+    cantidad_producto = models.IntegerField(default=0)
+    creacion_producto = models.DateTimeField(default=timezone.now)  # 🔄 editable y con valor por defecto
     imagen_producto = models.ImageField(upload_to='producto/', null=True, blank=True)
-    id_categoria = models.ForeignKey(Categorias,on_delete=models.CASCADE, default=0)#Sin categoria
-    #id_almacen = models.ForeignKey(Almacenes, on_delete=models.CASCADE, default=1)
- 
+    id_categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE, default=0)
+    codigo_producto = models.CharField(max_length=10, unique=True, editable=False, blank=True)
+    # Generar un código único para el producto
+
+    def save(self, *args, **kwargs):
+        if not self.codigo_producto:
+            self.codigo_producto = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+        super().save(*args, **kwargs)
+
+
     def __str__(self):
         return self.nombre_producto    
 
