@@ -10,15 +10,14 @@ class Categorias(models.Model):
         return self.nombre_categoria    
 
 class Producto(models.Model):
-    nombre_producto = models.CharField(max_length = 50)
+    nombre_producto = models.CharField(max_length=50)
     descripcion_producto = models.TextField()
     precio_producto = models.IntegerField()
-    cantidad_producto = models.IntegerField(default=0)  
-    creacion_producto = models.DateTimeField(auto_now_add=True)
+    cantidad_producto = models.IntegerField(default=0)
+    creacion_producto = models.DateTimeField(default=timezone.now)  # 🔄 editable y con valor por defecto
     imagen_producto = models.ImageField(upload_to='producto/', null=True, blank=True)
-    id_categoria = models.ForeignKey(Categorias,on_delete=models.CASCADE, default=0)#Sin categoria
-    #id_almacen = models.ForeignKey(Almacenes, on_delete=models.CASCADE, default=1)
- 
+    id_categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE, default=0)
+
     def __str__(self):
         return self.nombre_producto    
 
