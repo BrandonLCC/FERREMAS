@@ -21,34 +21,25 @@
 </head>
 
 <body>
-    <h1>Muchas gracias (nombre usuario)</h1>
+    
+    <h1>¡Muchas gracias usuario {{ pedido.id_usuario.nombre_usuario }}!</h1>
     <h1>¡Hemos recibido tu orden!</h1>
     <p>Pronto estaremos preparando tu pedido.</p>
 
-    <div>
-        <h6>DIRECCIÓN DE ENTREGA O RETIRO</h6>
-    </div>
+        <div>
+            <h2>Detalle del Pago</h2>
+           <!--<p>Estado del pago: {{ estado }}</p>--> 
 
-    <div>
-        <div>
-            <H1>Detalle del pedido</H1>
-            <p>ID Pedido: C17743772</p>
-            
-            <!--div ejemplo-->
-            <div>
-                <p>imagen</p>
-                <p>marca</p>
-                <p>descripcion</p>
-                <p>cantidad</p>
-                <p>precio</p>
-            </div>
+            <p>Estado del pago: pendiente</p>
+            <p>Número de orden: {{ pedido.estado }}</p>
+            <p>Monto pagado: ${{ pedido.monto_pedido }}</p>
+            <p>Usuario: {{ pedido.id_usuario.nombre_usuario }}</p>
+            <p>Correo de contacto: {{ pedido.id_usuario.correo_usuario }}</p>
+
+            <p>Fecha del pedido: {{ pedido.fecha_pedido }}</p>
+
         </div>
-        
-        <div>
-            <H1>Compra</H1>
-            <p>Fecha de compra:   19/05/2025</p>
-            <p>Monto total: </p>
-        </div>
+    
     </div>
     
    

@@ -235,7 +235,10 @@ def Iniciar_pago(request):
 
 #Por ralizar
 def Resultado_pago(request):
-    return render(request, 'resultado_pago.html') 
+    #token = request.GET.get("token_ws")
+    pedido = Pedido_usuario.objects.select_related('id_usuario').latest('fecha_pedido')
+ 
+    return render(request, 'resultado_pago.html',{"pedido":pedido}) 
 
 
 def Compras_usuario(request):

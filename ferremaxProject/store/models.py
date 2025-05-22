@@ -85,18 +85,21 @@ class MetodoEntrega(models.Model):
     def __str__(self):
         return f"{self.carrito} - {self.get_tipo_envio_display()}"
 
-
 #Un usuario tiene muchos pedido
 #Una pedido tiene un metodo de envio
 #una pedido tiene la id detalle compra o carrito 
-class Pedido_usuario(models.Model): 
+class Pedido(models.Model): 
     id_pedido = models.AutoField(primary_key=True)
     fecha_pedido = models.DateTimeField(auto_now_add=True)
     monto_pedido =  models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    estado = models.CharField(max_length=20, default='Pendiente')
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
    
 
-
-
- # saber si crear una sola tabla pedido o las dos   
-    
+class detalle_pedido(models.Model): 
+    id_detalle_pedido = models.AutoField(primary_key=True)
+    id_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad_producto = models.IntegerField()  
+    precio_producto = models.IntegerField()  
+    subtotal = models.IntegerField()  

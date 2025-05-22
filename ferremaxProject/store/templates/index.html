@@ -12,7 +12,7 @@
   {% load bootstrap5 %}
   {% bootstrap_css %}
 
-  <link rel="stylesheet" href="{% static 'css/style-12.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style-13.css' %}">
 
   <!--Iconos-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -35,21 +35,32 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
-              <i class="nav-icons fas fa-check-circle"></i>
-              Mis compras
+              <i class="fas fa-hourglass-half"></i>
+              Pedidos pendientes
             </a>
+            
 
           </li>
+
+          <li class="nav-item">
+            <a  class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Historial compras
+            </a>
+            
+
+          </li>
+          
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'registro' %}">
-              <i class="fas fa-sign-in-alt"></i>
+              <i class="fas fa-user-plus"></i>
 
               Crear cuenta
             </a>
           </li>
           <li class="nav-item">
             <a class="link-diseño-nav nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
-              <i class="fas fa-user-plus"></i>
+              <i class="fas fa-sign-in-alt"></i>
 
               Iniciar sesión
 
@@ -61,16 +72,16 @@
               <i class="fas fa-bars me-1"></i> Categorias
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=1">Herramientas Manuales</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=1">Herramientas Manuales</a>
               </li>
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=2">Materiales Básicos</a></li>
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=3">Equipos de Seguridad</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=2">Materiales Básicos</a></li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=3">Equipos de Seguridad</a>
               </li>
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=4">Tornillos y Anclajes</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=4">Tornillos y Anclajes</a>
               </li>
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=5">Fijaciones y Adhesivos</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=5">Fijaciones y Adhesivos</a>
               </li>
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=6">Equipos de Medición</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=6">Equipos de Medición</a>
               </li>
             </ul>
           </li>
