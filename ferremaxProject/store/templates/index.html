@@ -141,17 +141,7 @@
         <img src="{% static './images/CARRUSEL.jpg'%}" class="d-block w-100" alt="...">
       </div>
     </div>
-    <!-- Puedes poner esto donde quieras el botón, por ejemplo después del carrusel -->
-<div class="text-center my-4">
-    <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#divisaCollapse" aria-expanded="false" aria-controls="divisaCollapse">
-        Conversor de Divisas USD/CLP
-    </button>
-</div>
-<div class="collapse" id="divisaCollapse">
-    <!-- Aquí irá el conversor de divisas -->
-    <div id="contenedor-conversor"></div>
-</div>
-  </div>
+    
 
   <section class="mx-auto col-11 mt-5">
     <div class="text-center">
@@ -213,7 +203,7 @@
       </div>
     </div>
   </div>
-  <script>                            const container = document.querySelector(".mainContainerCarouselFinal"); const slide = document.querySelector(".slideTemplate"); const prevBtn = document.querySelector(".controlerFinalCarousel div:nth-child(1)"); const nextBtn = document.querySelector(".controlerFinalCarousel div:nth-child(2)"); let nbclick = 0; const nbSlide = 10; const { style: containerStyle, getComputedStyle: getCS } = window; nextBtn.addEventListener("click", () => { if (nbclick < nbSlide - 1) { nbclick++; updateScroll(); } }); prevBtn.addEventListener("click", () => { if (nbclick > 0) { nbclick--; updateScroll(); } }); function updateScroll() { const screenWidth = parseInt(getCS(container).getPropertyValue("--screenWidth").replace("px", "")); const slideHeight = parseInt(getCS(slide).getPropertyValue("--slideHeight").replace("px", "")); const scrollAmount = ((screenWidth - (slideHeight + 40)) / 2) * nbclick; container.scroll({ left: scrollAmount, behavior: "smooth" }); }                            </script>
+  <script>  const container = document.querySelector(".mainContainerCarouselFinal"); const slide = document.querySelector(".slideTemplate"); const prevBtn = document.querySelector(".controlerFinalCarousel div:nth-child(1)"); const nextBtn = document.querySelector(".controlerFinalCarousel div:nth-child(2)"); let nbclick = 0; const nbSlide = 10; const { style: containerStyle, getComputedStyle: getCS } = window; nextBtn.addEventListener("click", () => { if (nbclick < nbSlide - 1) { nbclick++; updateScroll(); } }); prevBtn.addEventListener("click", () => { if (nbclick > 0) { nbclick--; updateScroll(); } }); function updateScroll() { const screenWidth = parseInt(getCS(container).getPropertyValue("--screenWidth").replace("px", "")); const slideHeight = parseInt(getCS(slide).getPropertyValue("--slideHeight").replace("px", "")); const scrollAmount = ((screenWidth - (slideHeight + 40)) / 2) * nbclick; container.scroll({ left: scrollAmount, behavior: "smooth" }); }                            </script>
 
 
 
@@ -253,6 +243,17 @@
       {% endfor %}
     </div>
   </div>
+    <!-- boton convertor de divisa -->
+    <div class="text-center my-4">
+        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#divisaCollapse" aria-expanded="false" aria-controls="divisaCollapse">
+            Conversor de Divisas USD/CLP
+        </button>
+    </div>
+    <div class="collapse" id="divisaCollapse">
+        <!-- Aquí irá el conversor de divisas -->
+        <div id="contenedor-conversor"></div>
+    </div>
+      </div>
 
 
   <footer class=" text-center bg-body-tertiary">
@@ -320,6 +321,7 @@
 
       </section>
     </div>
+    
 
     <!-- Copyright -->
     <div class="footer-final text-center p-3">
