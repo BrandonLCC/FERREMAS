@@ -27,6 +27,13 @@ def home(request):
     return render(request, 'index.html' ,{'productos': productos,'estado':estado})
 
 def listaProductos(request):
+    user = request.user
+
+    if user.is_active:
+        estado = 'usuarioAutenticado'
+    else:
+        estado = 'false'
+    
     categoria = request.GET.get('id_categoria', '')  
 
     if categoria:
@@ -35,7 +42,7 @@ def listaProductos(request):
         categoria = None
         productos = Producto.objects.all()  
 
-    return render(request, 'lista_productos.html', {'categoria':categoria,'productos':productos})
+    return render(request, 'lista_productos.html', {'categoria':categoria,'productos':productos,'estado':estado})
 
 def detalle_productos(request, pk):
     producto = get_object_or_404(Producto.objects.select_related('id_categoria').all(), pk=pk)  
@@ -82,6 +89,14 @@ def agregar_al_carrito(request, producto_id):
 
 @login_required
 def carro_compra(request):
+
+    user = request.user
+
+    if user.is_active:
+        estado = 'usuarioAutenticado'
+    else:
+        estado = 'false'
+
     carrito = get_object_or_404(Carrito, usuario=request.user)
     elementos = ElementoCarrito.objects.filter(carrito=carrito)
     
@@ -109,7 +124,8 @@ def carro_compra(request):
         'elementos': elementos,
         'total_carrito': total_carrito,
         'total_carrito_con_descuento': total_carrito_con_descuento,
-        'descuento_aplicado': descuento_aplicado
+        'descuento_aplicado': descuento_aplicado,
+        'estado':estado
     })
 
 def eliminar_del_carrito(request, elemento_id):
