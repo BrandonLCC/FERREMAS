@@ -243,6 +243,12 @@ def Resultado_pago(request):
     return render(request, 'resultado_pago.html',{"pedido":pedido}) 
 
 
+def Pedidos_pendientes(request):
+    return render(request, 'pedidos_pendientes.html') 
+
+
+
+
 def Compras_usuario(request):
     return render(request, 'compras_usuario.html') 
 
