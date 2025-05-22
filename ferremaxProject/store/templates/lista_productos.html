@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-
+{% load custom_filters %}
 <html lang="en">
 
 <head>
@@ -12,7 +12,9 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
-    <link rel="stylesheet" href="{% static 'css/stylee.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style-13.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <!--Iconos-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -21,27 +23,177 @@
 </head>
 
 <body>
+    <!-- NAV --><nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Logo empresa -->
+        <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'home' %}">
+          <img src="{% static  'images/logo-ferremas.png' %}" height="40" alt="MDB Logo" loading="lazy" />
+        </a>
+        <!-- links derechos -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link" href="{% url 'Pedidos_pendientes' %}">
+              <i class="fas fa-hourglass-half"></i>
+              Pedidos pendientes
+            </a>
 
-    <!--Seccion Productos -->
-    <div class="div-orden-productos row col-6">
-        <h3 class="titulo-categoria">
-            <i class="fas fa-tags mx-auto"></i>
-            Productos
-        </h3>
-        {% for producto in productos %}
-        <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
-            <div class="card mx-auto">
-                {% if producto.imagen_producto %}
-                <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                {% endif %}
-                <h1>{{ producto.nombre_producto }}</h1>
-                <h6>{{ producto.precio_producto }}</h6>
 
-            </div>
-        </div>
-        {% endfor %}
+          </li>
+
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Historial compras
+            </a>
+
+
+          </li>
+
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link" href="{% url 'registro' %}">
+              <i class="fas fa-user-plus"></i>
+
+              Crear cuenta
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
+              <i class="fas fa-sign-in-alt"></i>
+
+              Iniciar sesión
+
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="link-diseño-nav nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bars me-1"></i> Categorias
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=1">Herramientas
+                  Manuales</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=2">Materiales Básicos</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=3">Equipos de
+                  Seguridad</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=4">Tornillos y
+                  Anclajes</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=5">Fijaciones y
+                  Adhesivos</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=6">Equipos de
+                  Medición</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- links izquierdos -->
+      <div class="d-flex align-items-center">
+        <nav class="navbar bg-body-tertiary">
+          <div class="container-fluid">
+            <form class="d-flex input-group w-auto">
+              <input type="search" class="form-control" placeholder="Buscar Producto" aria-label="Search"
+                aria-describedby="search-addon" />
+              <span class="input-group-text border-0" id="search-addon">
+                <i class="fas fa-search"></i>
+              </span>
+            </form>
+          </div>
+        </nav>
+        <ul class="navbar-nav">
+
+          <!-- Badge -->
+          <li class="nav-item mx-1">
+            {% if estado == 'usuarioAutenticado' %}
+            <p class="nav-autenticacion-1">
+              <b>Activo ●</b>
+            </p>
+            {% else %}
+            <p class=" nav-autenticacion-2">
+              <b>Sin cuenta ●</b>
+            </p>
+            {% endif %}
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'carro_compra' %}">
+              <span></span>
+              <span class="cantidad-carro-nav badge badge-pill bg-danger py-2">
+                <i class="fas fa-shopping-cart me-2"></i>
+                0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+<div class="col-11 mx-auto my-5 div-flujo-links-a py-2">
+  <div class="flujo-link-a-div-2 p-2  mx-2">
+    <a class="flujo-link-a ms-4" href="{% url 'home' %}">&lt; Ir al Inicio</a>
+    <a class="flujo-link-a mx-4" href="{% url 'carro_compra' %}"> Carro compras &gt;</a>
+  </div>
+  
+</div>
+
+<section>
+  <div class="col-12 mx-auto">
+    <div class="col-11 mx-auto mt-5 div-img-lista-productos">
+      <img src="{{ categoria.imagen_categoria.url }}" class="ms-auto primera-imagen-list" alt="">
+      <div class="col-11 div-titulo-1  ms-auto">
+        {% if categoria %}
+        <h1 class="titulo-1 col-4  ">Nuestros productos en {{ categoria.nombre_categoria }}</h1>
+        {% endif %} 
+      </div>
+    </div>
+  </div>
+</section> 
+
+
+
+<section class="my-5">
+<div class="div-seccion  col-11 mx-auto my-5">
+    <div class="titulo-producto">
+      <h3 class="ms-2 mt-1 ">
+        <i class="fas fa-shopping-bag mx-auto"></i>
+        Productos
+      </h3>
     </div>
 
+    <div class="div-orden-productos col-12 mx-auto row">
+      {% for producto in productos %}
+      <div class="col-6 col-sm-4 col-md-3 col-xl-2 mx-auto ">
+        <div class="card mx-auto my-2">
+          {% if producto.imagen_producto %}
+          <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+          {% endif %}
+          <div class="mx-auto">
+            <p class="text-center">{{ producto.nombre_producto }}</p>
+            <p>{{ producto.descripcion_producto|truncatechars:20 }}</p>
+            <p>${{ producto.precio_producto }}</p>
+          </div>
+
+          <div class="mx-auto mb-3">
+            <a class="btn-principal" href="{% url 'detalle_productos' producto.id  %}">
+              Ver Producto
+              <i class="nav-icons fas fa-eye"></i>
+            </a>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</section>
 </body>
 
 </html>
