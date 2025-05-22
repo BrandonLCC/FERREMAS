@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import MetodoEntrega, Producto, Categorias, Usuario ,Carrito, ElementoCarrito
+from .models import *
 from django.contrib.auth.decorators import login_required
 from .form import *
 from django.shortcuts import get_object_or_404
@@ -172,10 +172,9 @@ def Metodo_envio(request):
 
     costo_envio = 5000 
 
-   
     # Calcular el total con envío
     total_con_envio = total_carrito + costo_envio
-  
+    
     return render(request, 'metodo_envio.html' , {
                             'elementos': elementos,
                             'total_carrito': total_carrito,
@@ -183,8 +182,24 @@ def Metodo_envio(request):
                             'total_con_envio': total_con_envio,}
                   )
 
+
+def calcular_total_con_envio(user):
+    carrito = get_object_or_404(Carrito, usuario=user)
+    elementos = ElementoCarrito.objects.filter(carrito=carrito)
+    total_carrito = 0
+    for elemento in elementos:
+        elemento.total = elemento.producto.precio_producto * elemento.cantidad
+        total_carrito += elemento.total
+
+    costo_envio = 5000
+    total_con_envio = total_carrito + costo_envio
+    return total_con_envio
+
 #Por realizar
-def Iniciar_pago(request,montoPedido):
+def Iniciar_pago(request):
+
+    total_con_envio = calcular_total_con_envio(request.user)
+
     #Codigo integracion, Key test, Modo = test 
     tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS,
                                     IntegrationApiKeys.WEBPAY, 
@@ -192,14 +207,25 @@ def Iniciar_pago(request,montoPedido):
                                     
                                     ))
     
-    montoPedido = 1000
     
     #Simulacion de datos
     buy_order = "ejemplo100"# Este número debe ser único para cada transacción.
     session_id = "sesionejemplo123" #este valor es devuelto al final de la transacción. 
-    amount = montoPedido #Monto de la transacción. Máximo 2 decimales para USD. 
+    amount = total_con_envio #Monto de la transacción. Máximo 2 decimales para USD. 
     #Datos de la orden
 
+    try:
+        usuario = Usuario.objects.get(correo_usuario=request.user.email)  
+        #Registro del pedido en la base de datos
+        pedido_usuario = Pedido_usuario.objects.create(
+                monto_pedido=amount,
+                id_usuario=usuario.id
+            )
+        print("Venta pedido realizada:", pedido_usuario)
+        return pedido_usuario
+    
+    except ValueError as e:
+        print("Error al almacenar el pedido",e)
 
     return_url = "http://127.0.0.1:8000/store/resultado_pago/" #url luego del proceso de pago 
     #Funcion create que recibe los datos de la orden

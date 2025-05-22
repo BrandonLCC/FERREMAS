@@ -19,6 +19,8 @@ urlpatterns = [
     path('inicio_sesion/', LoginView.as_view(template_name='inicio_sesion.html'), name='inicio_sesion'),
     #Logout
     path('cerrar_sesion/', LogoutView.as_view(template_name='cerrar_sesion.html'), name='cerrar_sesion'),
+    #Autenticación de usuario
+    path('autenticacion/', views.agregar_al_carrito, name='autenticacion'),
 
     path('productos/', views.listaProductos, name='lista_productos'),
     path('producto/<int:pk>/', views.detalle_productos, name='detalle_productos'),
