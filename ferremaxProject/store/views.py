@@ -226,6 +226,14 @@ def Iniciar_pago(request):
     except ValueError as e:
         print("Error al almacenar el pedido",e)
 
+    #Crear el detalle pedido a partir de 
+   #detalle = detalle_pedido.objects.create(
+    #    pedido=pedido_usuario,
+     #   producto=producto,  # una instancia de Producto
+      #  cantidad=2,
+      #  precio_unitario=producto.precio
+    #)
+
     return_url = "http://127.0.0.1:8000/store/resultado_pago/" #url luego del proceso de pago 
     #Funcion create que recibe los datos de la orden
     resp = tx.create(buy_order, session_id, amount, return_url)
@@ -244,7 +252,10 @@ def Resultado_pago(request):
 
 
 def Pedidos_pendientes(request):
-    return render(request, 'pedidos_pendientes.html') 
+    #AQUI MOTRAR TODOS LOS PEDIDOS "IF" TIENEN EL ESTADO DE PENDIENTE
+    pedido = Pedido.objects.select_related('id_usuario').all()
+
+    return render(request, 'Pedidos_pendientes.html', {"pedido":pedido}) 
 
 
 

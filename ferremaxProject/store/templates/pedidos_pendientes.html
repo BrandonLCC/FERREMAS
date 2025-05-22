@@ -22,22 +22,21 @@
 
 <body>
     
-
-      <!--Seccion Productos -->
     <div class="div-orden-productos row col-6">
         <h3 class="titulo-categoria">
-            <i class="fas fa-tags mx-auto"></i>
-            Productos
+            Pedidos pendientes
         </h3>
-        {% for producto in productos %}
+        {% for pedidos in pedido %}
         <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
             <div class="card mx-auto">
-                {% if producto.imagen_producto %}
-                <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                {% endif %}
-                <h1>{{ producto.nombre_producto }}</h1>
-                <h6>{{ producto.precio_producto }}</h6>
+                <img src="{% static  'images/Pedido-en-espera.png' %}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                <P>Nro pedido: {{ pedidos.id_pedido }} </P>
+                <P>Estado del pedido: {{ pedidos.estado }}</P>
+                <P>Monto pedido:{{ pedidos.monto_pedido }}</P>
+                <P>Fecha: {{ pedidos.fecha_pedido }}</P>
+               
 
+                <button>Detalle pedido</button>
             </div>
         </div>
         {% endfor %}
