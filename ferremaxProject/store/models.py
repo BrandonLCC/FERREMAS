@@ -99,5 +99,4 @@ class Pedido_usuario(models.Model):
 
 
  # saber si crear una sola tabla pedido o las dos   
-class detalle_pedido_usuario(models.Model): 
     
