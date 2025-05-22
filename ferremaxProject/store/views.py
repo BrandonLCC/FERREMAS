@@ -217,12 +217,11 @@ def Iniciar_pago(request):
     try:
         usuario = Usuario.objects.get(correo_usuario=request.user.email)  
         #Registro del pedido en la base de datos
-        pedido_usuario = Pedido_usuario.objects.create(
+        pedido_usuario = Pedido.objects.create(
                 monto_pedido=amount,
-                id_usuario=usuario.id
+                id_usuario=usuario #en caso de que de error:usuario.id 
             )
         print("Venta pedido realizada:", pedido_usuario)
-        return pedido_usuario
     
     except ValueError as e:
         print("Error al almacenar el pedido",e)
@@ -236,8 +235,11 @@ def Iniciar_pago(request):
 #Por ralizar
 def Resultado_pago(request):
     #token = request.GET.get("token_ws")
-    pedido = Pedido_usuario.objects.select_related('id_usuario').latest('fecha_pedido')
- 
+    try:
+        pedido = Pedido.objects.select_related('id_usuario').latest('fecha_pedido')
+    except Pedido.DoesNotExist:
+        pedido = None  # O redirecciona a una vista apropiada, o muestra un mensaje
+        # Por ejemplo: return render(request, 'store/error_pedido.html')
     return render(request, 'resultado_pago.html',{"pedido":pedido}) 
 
 

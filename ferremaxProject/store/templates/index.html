@@ -28,7 +28,7 @@
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Logo empresa -->
-        <a class="navbar-brand mt-2 mt-lg-0"  href="{% url 'home' %}">
+        <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'home' %}">
           <img src="{% static  'images/logo-ferremas.png' %}" height="40" alt="MDB Logo" loading="lazy" />
         </a>
         <!-- links derechos -->
@@ -38,19 +38,19 @@
               <i class="fas fa-hourglass-half"></i>
               Pedidos pendientes
             </a>
-            
+
 
           </li>
 
           <li class="nav-item">
-            <a  class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
+            <a class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
               <i class="nav-icons fas fa-check-circle"></i>
               Historial compras
             </a>
-            
+
 
           </li>
-          
+
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'registro' %}">
               <i class="fas fa-user-plus"></i>
@@ -72,16 +72,22 @@
               <i class="fas fa-bars me-1"></i> Categorias
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=1">Herramientas Manuales</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=1">Herramientas
+                  Manuales</a>
               </li>
-              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=2">Materiales Básicos</a></li>
-              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=3">Equipos de Seguridad</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=2">Materiales Básicos</a>
               </li>
-              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=4">Tornillos y Anclajes</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=3">Equipos de
+                  Seguridad</a>
               </li>
-              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=5">Fijaciones y Adhesivos</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=4">Tornillos y
+                  Anclajes</a>
               </li>
-              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=6">Equipos de Medición</a>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=5">Fijaciones y
+                  Adhesivos</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=6">Equipos de
+                  Medición</a>
               </li>
             </ul>
           </li>
@@ -169,28 +175,22 @@
       <div class="slideContainer ">
         <div class="mainContainerCarouselFinal" style="--screenWidth: 1382.4px;">
           <a href="{% url 'lista_productos' %}?id_categoria=1" class="slideTemplate"
-            style="--slideHeight: 150px; transform: translateY(0px);"><img
-              src="{% static  'images/categoria1.jpg' %}">
+            style="--slideHeight: 150px; transform: translateY(0px);"><img src="{% static  'images/categoria1.jpg' %}">
           </a>
           <a href="{% url 'lista_productos' %}?id_categoria=2" class="slideTemplate"
-            style="--slideHeight: 150px; transform: translateY(0px);"><img
-              src="{% static  'images/categoria2.jpg' %}">
+            style="--slideHeight: 150px; transform: translateY(0px);"><img src="{% static  'images/categoria2.jpg' %}">
           </a>
           <a href="{% url 'lista_productos' %}?id_categoria=3" class="slideTemplate"
-            style="--slideHeight: 150px; transform: translateY(0px);"><img
-              src="{% static  'images/categoria3.jpg' %}">
+            style="--slideHeight: 150px; transform: translateY(0px);"><img src="{% static  'images/categoria3.jpg' %}">
           </a>
           <a href="{% url 'lista_productos' %}?id_categoria=4" class="slideTemplate"
-            style="--slideHeight: 150px; transform: translateY(0px);"><img
-              src="{% static  'images/categoria4.jpg' %}">
+            style="--slideHeight: 150px; transform: translateY(0px);"><img src="{% static  'images/categoria4.jpg' %}">
           </a>
           <a href="{% url 'lista_productos' %}?id_categoria=5" class="slideTemplate"
-            style="--slideHeight: 150px; transform: translateY(0px);"><img
-              src="{% static  'images/categoria5.jpg' %}">
+            style="--slideHeight: 150px; transform: translateY(0px);"><img src="{% static  'images/categoria5.jpg' %}">
           </a>
           <a href="{% url 'lista_productos' %}?id_categoria=6" class="slideTemplate"
-            style="--slideHeight: 150px; transform: translateY(0px);"><img
-              src="{% static  'images/categoria6' %}">
+            style="--slideHeight: 150px; transform: translateY(0px);"><img src="{% static  'images/categoria6.jpg' %}">
           </a>
         </div>
       </div>
