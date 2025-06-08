@@ -1,24 +1,24 @@
-
-
 :root {
     --color-seleccion: rgb(203, 203, 203);
     --color-navbar: #191919;
     --Color-primario: #ab1535 ;
     --color-secundario:  #8a102b;
-    
+
 }
 .navbar {
-    background: linear-gradient(85deg, #8a102b ); 
-    background-color: #641414;
+    background-color: #8a102b;
 }
 
-
+.navbar-2 {
+    background-color: #2c2c2c;
+}
 
 .logo-ferremas {
     position: relative;
     width: 60px;
     height: 60px;
     border-radius: 1000px;
+
 }
 
 /*Links a*/
@@ -71,12 +71,6 @@
 .cantidad-carro-nav  {
     position: relative;
 }
-
-
-.carousel-inner {
-    height: 500px;
-}
-
 
 
 /* ROOT DE LA CATEGORIA */
