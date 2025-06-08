@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+LOGIN_URL = '/inicio_sesion/'
+
+
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Library Admin",

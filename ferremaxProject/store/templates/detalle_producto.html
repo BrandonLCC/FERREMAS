@@ -112,7 +112,7 @@
                 <p class="descripcion_producto">{{ producto.descripcion_producto }}</p>
                 <p class="descripcion_producto">codigo: {{ producto.codigo_producto }}</p>
             
-
+            {% if user.is_authenticated %}
                 <div class="formulario-compra">
                     <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
                         {% csrf_token %}
@@ -122,6 +122,14 @@
                         </button>
                     </form>
                 </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Necesitas iniciar sesión para agregar productos al carro. 
+                        <a  href="{% url 'inicio_sesion' %}" class="alert-link  ">Iniciar sesión aquí</a>
+                </div>
+            
+            {% endif %}</div>
             </div>
         </div>
     </div>
