@@ -187,7 +187,11 @@
         </h3>
 
         <div class="d-flex">
-            <a href="{% url 'metodo_envio' %}" class="btn-comprar ms-auto my-2 px-5">Comprar</a>
+            {% if elementos|length > 0 %}
+          <a href="{% url 'metodo_envio' %}" class="btn-comprar ms-auto my-2 px-5">Comprar</a>
+            {% else %}
+          <button class="btn-comprar ms-auto my-2 px-5" disabled style="opacity: 0.5; cursor: not-allowed;">Comprar</button>
+            {% endif %}
         </div>
 
         <br><br>
