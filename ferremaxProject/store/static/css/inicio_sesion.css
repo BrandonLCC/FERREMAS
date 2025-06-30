@@ -1,0 +1,27 @@
+.img-login {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh; 
+    object-fit: cover; 
+    z-index: -1; 
+    filter: blur(0px);
+}
+
+/* FORMULARIO */
+.formulario-padre {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.formulario-container {
+  background-color: rgba(255, 255, 255, 0.384); /* Fondo semitransparente para legibilidad */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}

@@ -13,7 +13,7 @@ class Categorias(models.Model):
         return self.nombre_categoria    
 
 class Producto(models.Model):
-    nombre_producto = models.CharField(max_length=50)
+    nombre_producto = models.CharField(max_length=50)#falto modelo pero no importa
     descripcion_producto = models.TextField()
     precio_producto = models.IntegerField()
     cantidad_producto = models.IntegerField(default=0)
@@ -89,17 +89,49 @@ class MetodoEntrega(models.Model):
 #Una pedido tiene un metodo de envio
 #una pedido tiene la id detalle compra o carrito 
 class Pedido(models.Model): 
+    ESTADOS = [
+        ('pendiente', 'Pendiente'),
+        ('confirmado', 'Confirmado'),
+        ('cancelado', 'Cancelado'),
+    ]
+
     id_pedido = models.AutoField(primary_key=True)
     fecha_pedido = models.DateTimeField(auto_now_add=True)
     monto_pedido =  models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    estado = models.CharField(max_length=20, default='Pendiente')
+    estado = models.CharField(max_length=20,choices=ESTADOS, default='Pendiente')
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-   
 
-class detalle_pedido(models.Model): 
+def __str__(self):
+    return f"Pedido #{self.id_pedido} - {self.estado}" 
+
+class Detalle_pedido(models.Model): 
     id_detalle_pedido = models.AutoField(primary_key=True)
     id_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad_producto = models.IntegerField()  
     precio_producto = models.IntegerField()  
-    subtotal = models.IntegerField()  
+
+
+class Ventas(models.Model):
+    id_venta = models.AutoField(primary_key=True)
+    id_pedido = models.ForeignKey('Pedido', on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    nro_boleta = models.CharField(max_length=20, blank=True, null=True)
+    fecha_venta = models.DateTimeField(default=timezone.now)
+    total = models.DecimalField(max_digits=10, decimal_places=2)  # total final de la venta
+    metodo_pago = models.CharField(max_length=50, choices=[
+        ('efectivo', 'Efectivo'),
+        ('tarjeta', 'Tarjeta'),
+        ('transferencia', 'Transferencia'),
+        ('otro', 'Otro'),
+
+    ])
+    estado_pago = models.CharField(max_length=20, choices=[
+        ('pagado', 'Pagado'),
+        ('pendiente', 'Pendiente'),
+        ('fallido', 'Fallido'),
+    ], default='pendiente')
+    observaciones = models.TextField(blank=True, null=True)  # notas opcionales de la venta
+
+    def __str__(self):
+        return f"Venta #{self.id_venta} - Usuario {self.id_usuario}"

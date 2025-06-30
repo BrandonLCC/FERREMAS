@@ -19,29 +19,29 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
-
+ 
 <body>
     
     <div class="div-orden-productos row col-6">
         <h3 class="titulo-categoria">
-            Pedidos pendientes
+            Detalle Pedidos
         </h3>
-        {% for pedido in pedidos %}
+        
+        <p>En esta sección podrás visualizar todos los productos que seleccionaste en tu carro de compras y por los cuales realizaste el pago. Está diseñada para que puedas acceder a esta información de forma rápida y sencilla.</p>
+
+        {% for detallePedido in detalles %}
         <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
-            <div class="card mx-auto">
-                <img src="{% static  'images/Pedido-en-espera.png' %}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                <P>Nro pedido: {{ pedido.id_pedido }} </P>
-                <P>Estado del pedido: {{ pedido.estado }}</P>
-                <P>Monto pedido:{{ pedido.monto_pedido }}</P>
-                <P>Fecha: {{ pedido.fecha_pedido }}</P>
-               
-                <a href="{% url 'detalle_pedido' pedido.id_pedido %}">Ver detalle</a>
-                    <i class="fas fa-shopping-cart"></i> Detalle pedido 
-                </a>
-            </div>
+                <p>Nombre del producto: {{ detallePedido.id_producto.nombre_producto }}</p>
+                <P>Precio del producto:{{ detallePedido.precio_producto }}</P>
+                <P>Cantidad: {{ detallePedido.cantidad_producto }}</P>
+                <p>Id del pedido: {{ detallePedido.id_pedido_id }}</p>
+
         </div>
         {% endfor %}
     </div>
+
+
+  </div>
 
 
      <a href="{% url 'home' %}" class="btn btn-primary w-100 mt-2">

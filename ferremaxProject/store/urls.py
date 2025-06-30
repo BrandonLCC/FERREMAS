@@ -36,11 +36,15 @@ urlpatterns = [
     path('resultado_pago/', views.Resultado_pago, name='resultado_pago'),
     #URLs despues del pago
     path('Pedidos_pendientes/', views.Pedidos_pendientes, name='Pedidos_pendientes'),
-    path('compras_usuario/', views.Compras_usuario, name='compras_usuario'),
-
+    path('pedido/<int:pedido_id>/detalle/', views.detalle_pedido, name='detalle_pedido'),
+    #historial
+    path('compras_usuario/', views.compras_usuario, name='compras_usuario'),
     #api rest
     path('api/', include(router.urls)),
- 
+
+    #Interfaz gestion
+   # path('Confirmar_pedidos/', views.Confirmar_pedidos, name='Confirmar_pedidos'),
+
 ]
    # path('inicio_sesion/', LoginView.as_view(template_name='inicio_sesion.html'), name='inicio_sesion'),
  

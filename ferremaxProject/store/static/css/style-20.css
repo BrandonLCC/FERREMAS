@@ -3,8 +3,10 @@
     --color-navbar: #191919;
     --Color-primario: #ab1535 ;
     --color-secundario:  #8a102b;
+    --color-blanco: #ffffff;
 
 }
+
 .navbar {
     background-color: #8a102b;
 }
@@ -12,7 +14,7 @@
 .navbar-2 {
     background-color: #2c2c2c;
 }
-
+ 
 .logo-ferremas {
     position: relative;
     width: 60px;
@@ -294,38 +296,64 @@
     align-items: center;
 }
 
+.color-hr {
+    background-color: var(--titleColor);
+}
+
+.texto-bienvenida { 
+    font-size: 30px;
+}
+
 
 .btn-principal {
     position: relative;
     background-color: var(--Color-primario); 
     text-decoration: none;
-    color: white;
+    color: var(--color-blanco);
     transition: all 0.6s ease-in-out; 
-    padding: 8px;
+    padding: 9px;
 }
 
 
 
 .btn-principal:hover {
     background-color: var(--color-secundario);
-    color: white;
+    color: var(--color-blanco);
     border-radius: 5px;
 }
 
+.btn-secundario {
+    position: relative;
+    background-color: var(--color-blanco);
+    text-decoration: none;
+    color: var(--Color-primario);
+    transition: all 0.6s ease-in-out; 
+    padding: 8px;
+    border: 2px solid var(--Color-primario);
+}
+
+.btn-secundario:hover {
+    color: var(--color-secundario);
+    border: 2px solid var(--color-secundario);
+    transition: all 0.6s ease-in-out; 
+
+}
+
+
+
 .div-titulo-categoria {
- /*  background: linear-gradient(80deg, #ffffff,#ff3939,#ffd000, #ffffff);  */
     padding: 5px;
 
 }
+
 
 .div-seccion  {
     padding-bottom: 20px;
     border-left: 1px solid var(--color-seleccion);
     border-right: 1px solid var(--color-seleccion);
     border-bottom: 1px solid var(--color-seleccion);
-    
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 
 }
 
@@ -333,10 +361,15 @@
     background-color: var(--color-secundario); 
     padding: 5px;
     margin-bottom: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
+
+.subtitulo-diseño {
+    padding: 2px;
+    z-index: 1;
+}
+
 
 .card {
     z-index: 2;
@@ -350,6 +383,41 @@
 }
 
 
+.card-img-top {
+height: 200px;
+   
+}
+.card-id-producto_categoria {
+    text-align:inherit;
+    font-size: 13px;
+    font-weight:bold;
+    bottom: 55px;
+    left: 124px;
+    cursor: default;
+}
+
+.texto-nombre-producto {
+    cursor: default;
+    color: rgb(41, 41, 41);
+
+}
+
+.texto-descripcion {
+    position: relative;
+    bottom: 10px;
+    cursor: default;
+    color: rgb(75, 75, 75);
+
+}
+
+.texto-precio {
+    position: relative;
+    bottom: 15px;
+    cursor: default;
+    color: red;
+    font-size: 20px;
+}
+
 
 footer {
     margin-top: 500px;
@@ -358,7 +426,7 @@ footer {
 }
 
 .link-color-f, .list-unstyled,.text-body  {
-    color: white;
+    color: var(--color-blanco);
 }
 
 

@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>historial de compras</h1>
+    <!DOCTYPE html>
 {% load static %}
 
 <html lang="en">
@@ -21,21 +30,18 @@
 </head>
 
 <body>
-    
+
     <div class="div-orden-productos row col-6">
-        <h3 class="titulo-categoria">
-            Pedidos pendientes
-        </h3>
-        {% for pedido in pedidos %}
+        {% for historial in ventas %}
         <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
             <div class="card mx-auto">
                 <img src="{% static  'images/Pedido-en-espera.png' %}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                <P>Nro pedido: {{ pedido.id_pedido }} </P>
-                <P>Estado del pedido: {{ pedido.estado }}</P>
-                <P>Monto pedido:{{ pedido.monto_pedido }}</P>
-                <P>Fecha: {{ pedido.fecha_pedido }}</P>
+                <P>Nro pedido: {{ historial.id_pedido }} </P>
+                <P>Estado del pedido: {{ historial.estado }}</P>
+                <P>Monto pedido:{{ historial.monto_pedido }}</P>
+                <P>Fecha: {{ historial.fecha_pedido }}</P>
                
-                <a href="{% url 'detalle_pedido' pedido.id_pedido %}">Ver detalle</a>
+                <a href="{% url 'detalle_pedido' historial.id_pedido %}">Ver detalle</a>
                     <i class="fas fa-shopping-cart"></i> Detalle pedido 
                 </a>
             </div>
@@ -51,4 +57,6 @@
         
 </body>
 
+</html>
+</body>
 </html>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from .form import *
 from django.shortcuts import get_object_or_404
 #Importacion de rest
@@ -12,11 +12,15 @@ from transbank.common.integration_api_keys import IntegrationApiKeys #sacada de 
 from transbank.common.integration_commerce_codes import IntegrationCommerceCodes  #sacada  del github
 from transbank.common.integration_type import IntegrationType #para poder integrar tipo de transaccion test
 
-
 # Create your views here.
 def home(request):
     productos = Producto.objects.select_related('id_categoria').all()[:6]
     
+    categoria_basicos = Categorias.objects.get(nombre_categoria='Materiales Básicos')
+    catmaterialesBasicos = Producto.objects.filter(id_categoria=categoria_basicos)[:6]
+    categoria_seguidad = Categorias.objects.get(nombre_categoria='Equipos de Seguridad')
+    catEquiposSeguridad = Producto.objects.filter(id_categoria=categoria_seguidad)[:6]
+
     user = request.user
 
     if user.is_active:
@@ -24,7 +28,7 @@ def home(request):
     else:
         estado = 'false'
 
-    return render(request, 'index.html' ,{'productos': productos,'estado':estado})
+    return render(request, 'index.html' ,{'productos': productos,'catmaterialesBasicos': catmaterialesBasicos,'catEquiposSeguridad':catEquiposSeguridad,'estado':estado})
 
 def listaProductos(request):
     user = request.user
@@ -188,7 +192,6 @@ def Metodo_envio(request):
 
     costo_envio = 5000 
 
-    # Calcular el total con envío
     total_con_envio = total_carrito + costo_envio
     
     return render(request, 'metodo_envio.html' , {
@@ -211,7 +214,33 @@ def calcular_total_con_envio(user):
     total_con_envio = total_carrito + costo_envio
     return total_con_envio
 
-#Por realizar
+def seleccionar_metodo_envio(request):
+    if request.method == 'POST':
+        metodo_envio = request.POST.get('metodo_envio')
+
+        if metodo_envio == '5000':  
+            region = request.POST.get('region')
+            ciudad = request.POST.get('ciudad')
+            direccion = request.POST.get('direccion')
+            request.session['envio'] = {
+                'tipo': 'domicilio',
+                'region': region,
+                'ciudad': ciudad,
+                'direccion': direccion,
+                'costo': 5000,
+            }
+        else:
+            request.session['envio'] = {
+                'tipo': 'tienda',
+                'direccion': 'sede metropolitana',
+                'region': 'metropolitana',
+                'costo': 0,
+            }
+
+        return redirect('confirmar_pago')  
+
+    return redirect('carrito')  
+
 def Iniciar_pago(request):
 
     total_con_envio = calcular_total_con_envio(request.user)
@@ -242,13 +271,25 @@ def Iniciar_pago(request):
     except ValueError as e:
         print("Error al almacenar el pedido",e)
 
-    #Crear el detalle pedido a partir de 
-   #detalle = detalle_pedido.objects.create(
-    #    pedido=pedido_usuario,
-     #   producto=producto,  # una instancia de Producto
-      #  cantidad=2,
-      #  precio_unitario=producto.precio
-    #)
+
+    try:
+        carrito = get_object_or_404(Carrito, usuario=request.user)
+        elementos = ElementoCarrito.objects.filter(carrito=carrito)
+
+        for item in elementos:
+            Detalle_pedido.objects.create(
+                id_pedido=pedido_usuario,
+                id_producto=item.producto,
+                cantidad_producto=item.cantidad,
+                precio_producto=item.producto.precio_producto  
+            )
+
+
+        print("Detalle del pedido creado")
+
+    except Exception as e:
+        print("Detalle del pedido no creado", e)
+
 
     return_url = "http://127.0.0.1:8000/store/resultado_pago/" #url luego del proceso de pago 
     #Funcion create que recibe los datos de la orden
@@ -269,43 +310,34 @@ def Resultado_pago(request):
 
 def Pedidos_pendientes(request):
     #AQUI MOTRAR TODOS LOS PEDIDOS "IF" TIENEN EL ESTADO DE PENDIENTE
-    pedido = Pedido.objects.select_related('id_usuario').all()
+    try:
+        usuario = Usuario.objects.get(correo_usuario=request.user.email)
+        pedidos = Pedido.objects.filter(id_usuario=usuario, estado='pendiente')
+    except Usuario.DoesNotExist:
+        pedidos = [] 
 
-    return render(request, 'Pedidos_pendientes.html', {"pedido":pedido}) 
+    return render(request, 'Pedidos_pendientes.html', {"pedidos":pedidos}) 
 
+##Aqui se vera todos el detalle de los pedidos del usuario
+def detalle_pedido(request,pedido_id):
+    try:
+        usuario = Usuario.objects.get(correo_usuario=request.user.email)
+        pedido = get_object_or_404(Pedido, id_pedido=pedido_id, id_usuario=usuario)
 
+        detalles = Detalle_pedido.objects.filter(id_pedido=pedido).select_related('id_producto')
 
+    except Usuario.DoesNotExist:
+        detalles = []
 
-def Compras_usuario(request):
-    return render(request, 'compras_usuario.html') 
+    return render(request, 'detalle_pedido.html', {'detalles': detalles})
 
+#historial
+def compras_usuario(request):
+    try:
+        usuario = Usuario.objects.get(correo_usuario=request.user.email)
+        ventas = Pedido.objects.filter(id_usuario=usuario, estado='confirmado')
+    except Usuario.DoesNotExist:
+        ventas = [] 
 
+    return render(request, 'historial_compras.html', {"ventas":ventas}) 
 
-
-def seleccionar_metodo_envio(request):
-    if request.method == 'POST':
-        metodo_envio = request.POST.get('metodo_envio')
-
-        if metodo_envio == '5000':  # Envío a domicilio
-            region = request.POST.get('region')
-            ciudad = request.POST.get('ciudad')
-            direccion = request.POST.get('direccion')
-            # Aquí puedes hacer lo que necesites: guardar en sesión, base de datos, etc.
-            request.session['envio'] = {
-                'tipo': 'domicilio',
-                'region': region,
-                'ciudad': ciudad,
-                'direccion': direccion,
-                'costo': 5000,
-            }
-        else:  # Retiro en tienda
-            request.session['envio'] = {
-                'tipo': 'tienda',
-                'direccion': 'sede metropolitana',
-                'region': 'metropolitana',
-                'costo': 0,
-            }
-
-        return redirect('confirmar_pago')  # o donde continues tu flujo
-
-    return redirect('carrito')  # en caso de acceso directo sin POST

@@ -1,0 +1,136 @@
+
+
+.navbar {
+    background-color: #8a102b;
+}
+
+.navbar-2 {
+    background-color: #2c2c2c;
+}
+ 
+.logo-ferremas {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 1000px;
+
+}
+
+/*Links a*/
+.navbar-brand, .nav-item, .nav-link {
+    color: white;
+}
+
+.link-diseño-nav {
+    background-color: #ab1535 ;
+    border: 1px solid #940121;
+    margin-left: 8px;
+    border-radius: 10px;
+}
+
+.link-diseño-nav:hover {
+    color: #191919;
+    background-color:#d2294e;
+    border: 1px solid #aa0428;
+
+}
+
+
+
+.navbar-brand, .nav-item, .nav-link {
+    color: white;
+}
+
+.nav-icons {
+    position: relative;
+    margin: 2px;
+    top: 1px;
+}
+
+
+.nav-autenticacion-1 {
+    position: relative;
+    top: 9px;
+    color: #74ff39;
+    cursor: default;
+}
+
+.nav-autenticacion-2 {
+    position: relative;
+    top: 9px;
+    color: #ff3939;
+    cursor: default;
+
+}
+
+.cantidad-carro-nav  {
+    position: relative;
+}
+
+
+
+body {
+    background-color: #f8f9fa;
+}
+
+.producto-detalle-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.imagen_producto {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    object-fit: cover;
+
+    /* agregar borde oscuro */
+    border: 2px solid #343a40;
+}
+
+.nom_producto {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.precio_producto {
+    font-size: 1.5rem;
+    color: #198754;
+    font-weight: bold;
+}
+
+.descripcion_producto {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #555;
+}
+
+.btn-agregar {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.formulario-compra {
+    border-top: 1px solid #ddd;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+}
+
+
+
+.fondo {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imagen_producto {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
