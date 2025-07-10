@@ -44,6 +44,8 @@ urlpatterns = [
 
    #Interfaz gestion
    path('Gestion_pedidos/', views.Gestion_pedidos, name='Gestion_pedidos'),
+   path('gestionar-pedidos/', views.Gestion_pedidos, name='gestionar_pedidos'), 
+   path('cambiar-estado/<int:id_pedido>/<str:nuevo_estado>/', views.cambiar_estado_pedido, name='cambiar_estado_pedido'),
 
 ]
    # path('inicio_sesion/', LoginView.as_view(template_name='inicio_sesion.html'), name='inicio_sesion'),

@@ -118,20 +118,17 @@ class Ventas(models.Model):
     id_usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
     nro_boleta = models.CharField(max_length=20, blank=True, null=True)
     fecha_venta = models.DateTimeField(default=timezone.now)
-    total = models.DecimalField(max_digits=10, decimal_places=2)  # total final de la venta
+    total = models.DecimalField(max_digits=10, decimal_places=2) 
     metodo_pago = models.CharField(max_length=50, choices=[
         ('efectivo', 'Efectivo'),
-        ('tarjeta', 'Tarjeta'),
         ('transferencia', 'Transferencia'),
-        ('otro', 'Otro'),
+        ('Tarjeta', 'Tarjeta'),
 
     ])
     estado_pago = models.CharField(max_length=20, choices=[
         ('pagado', 'Pagado'),
-        ('pendiente', 'Pendiente'),
         ('fallido', 'Fallido'),
-    ], default='pendiente')
-    observaciones = models.TextField(blank=True, null=True)  # notas opcionales de la venta
+    ])
 
     def __str__(self):
         return f"Venta #{self.id_venta} - Usuario {self.id_usuario}"

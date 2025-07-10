@@ -4,54 +4,121 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ferremas</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/lista_contacto.css' %}">
 
 </head>
-<body>
-    
-    <div class = "container mt-5 mb-5">
-        <h2  class = "titulo my-2 p-2 text-center">Lista de pedidos</h2>
-        <div class = "table-responsive">
-            <table class = "table  align-middle">
-                <thead class = "table-color">
-                    <tr>
-                        <th scope = "col">ID pedido</th>
-                        <th scope = "col">Correo de contacto</th>
-                        <th scope = "col">Monto Pedido</th>
-                        <th scope = "col">Fecha pedido</th>
-                        <th scope = "col">Estado pedido</th>
 
-                        <th scope = "col" class = "text-center">Acciones</th>
+<body>
+    <div class="container mt-5">
+        <a href="javascript:history.back()" class="btn btn-secondary">Volver</a>
+    </div>
+
+    <table class="table table-bordered "></table>
+
+    <div class="container mt-5 mb-5">
+
+        <h2 class="titulo my-2 p-2 text-center">Lista de pedidos</h2>
+        <p class="text-center">¡Porfavor! Procesa los pedidos pendientes. En caso de que el cliente quiera rechazar su
+            pedido, selecciona la opcion de cancelar. Selecciona el metodo de pago realizado por el cliente y verifique
+            que el pedido corresponda adecuadamente al usuario</p>
+        <div class="table-responsive ">
+            <table class="table  align-middle">
+                <thead class="table-color">
+                    <tr>
+                        <th scope="col">ID pedido</th>
+                        <th scope="col">Correo de contacto</th>
+                        <th scope="col">Monto Pedido</th>
+                        <th scope="col">Fecha pedido</th>
+                        <th scope="col">Estado pedido</th>
+                        <th scope="col">Metodo de pago</th>
+
+                        <th scope="col" class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for contacto in contactos %}
-                    <tr class = "text-light">
-                        <td>{{ contacto.nombre }}</td>
-                        <td>{{ contacto.email }}</td>
-                        <td>{{ contacto.mensaje }}</td>
-                        <td class = "text-center">
-                            <a href="{% url 'contacto_detalle' contacto.pk %}" class = "btn boton-1 btn-sm m-1">Ver</a>
-                            <a href="{% url 'contacto_editar' contacto.pk %}" class = "btn boton-3 btn-sm m-1">Editar</a>   
-                            <form method="POST" action="{% url 'contacto_eliminar' contacto.pk %}" style = "display: inline;">
+                    {% for listapedidos in pedidos %}
+                    <tr class="">
+                        <td>{{ listapedidos.id_pedido }}</td>
+                        <td>{{ listapedidos.id_usuario.correo_usuario }}</td>
+                        <td>{{ listapedidos.monto_pedido }}</td>
+                        <td>{{ listapedidos.fecha_pedido }}</td>
+                        <td>{{ listapedidos.estado }}</td>
+                        <td>
+                            <div class="container ">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        ¿Como pago?
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><button class="dropdown-item" type="submit" name="metodo_pago"
+                                                value="Efectivo">Efectivo</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="metodo_pago"
+                                                value="Transferencia">Transferencia</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="metodo_pago"
+                                                value="Tarjeta">Tarjeta</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+
+
+                        <td class="text-center">
+                            <form method="post"
+                                action="{% url 'cambiar_estado_pedido' listapedidos.id_pedido 'Confirmado' %}">
                                 {% csrf_token %}
-                                <button type="submit" class = "btn boton-2 btn-sm m-1 ">Eliminar</button>
-                            </form>  
+                                <input type="hidden" name="metodo_pago" value="Efectivo"> <!-- O lo que corresponda -->
+                                <button type="submit" class="btn btn-success btn-sm mt-2">Aprobar pedido</button>
+                            </form>
+
+                            <hr>
+                            <form method="post"
+                                action="{% url 'cambiar_estado_pedido' listapedidos.id_pedido 'Cancelado' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm mb-2">Rechazar pedido</button>
+                            </form>
+
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                    Ayuda
+                </button>
+            </p>
+            <div style="min-height: 10px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                    <div class="card card-body" style="width: 800px;">
+                        Como Vendedor/Encargado debe ser capaz de
+                        - Asesorar a los clientes en la selección de productos.
+                        - Recibir y procesar pedidos.
+                        - Gestionar los pagos y facturación.
+                    </div>
+                </div>
+            </div>
         </div>
+
+
     </div>
-{% endblock %}
+    </div>
 
 
+    {% endblock %}
+
+
+
+    {% bootstrap_javascript %}
 
 </body>
+
 </html>
-    

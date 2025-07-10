@@ -272,7 +272,7 @@ def Iniciar_pago(request):
                 monto_pedido=amount,
                 id_usuario=usuario #en caso de que de error:usuario.id 
             )
-        print("Venta pedido realizada:", pedido_usuario)
+        print("pedido realizada:", pedido_usuario)
     
     except ValueError as e:
         print("Error al almacenar el pedido",e)
@@ -319,7 +319,7 @@ def Pedidos_pendientes(request):
     #AQUI MOTRAR TODOS LOS PEDIDOS "IF" TIENEN EL ESTADO DE PENDIENTE
     try:
         usuario = Usuario.objects.get(correo_usuario=request.user.email)
-        pedidos = Pedido.objects.filter(id_usuario=usuario, estado='pendiente')
+        pedidos = Pedido.objects.filter(id_usuario=usuario, estado='Pendiente')
     except Usuario.DoesNotExist:
         pedidos = [] 
 
@@ -342,7 +342,7 @@ def detalle_pedido(request,pedido_id):
 def compras_usuario(request):
     try:
         usuario = Usuario.objects.get(correo_usuario=request.user.email)
-        ventas = Pedido.objects.filter(id_usuario=usuario, estado='confirmado')
+        ventas = Pedido.objects.filter(id_usuario=usuario, estado='Confirmado')
     except Usuario.DoesNotExist:
         ventas = [] 
 
@@ -350,5 +350,35 @@ def compras_usuario(request):
 
 
 def Gestion_pedidos(Request):
-    return render(Request, 'admin/pedidos_pendientes.html') 
+    pedido = Pedido.objects.filter(estado='Pendiente')  
+    return render(Request, 'admin/pedidos_pendientes.html', {
+        'pedidos': pedido
+    })
 
+from django.views.decorators.http import require_POST
+
+@require_POST
+def cambiar_estado_pedido(request, id_pedido, nuevo_estado):
+    pedido = get_object_or_404(Pedido, id_pedido=id_pedido)  
+    metodo_pago = request.POST.get("metodo_pago")
+
+    if nuevo_estado in ['Confirmado', 'Cancelado']:
+        pedido.estado = nuevo_estado
+        pedido.save()
+    
+    if not Ventas.objects.filter(id_pedido=pedido).exists():
+        Ventas.objects.create(
+            id_pedido=pedido,
+            id_usuario=pedido.id_usuario,
+            nro_boleta=f"BO-{pedido.id_pedido}",  
+            total=pedido.monto_pedido,
+            metodo_pago=metodo_pago,        
+            estado_pago='pagado',         
+        )
+
+    elif nuevo_estado == 'Cancelado':
+        pedido.estado = nuevo_estado
+        pedido.save()
+
+
+    return redirect('gestionar_pedidos')

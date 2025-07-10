@@ -38,6 +38,8 @@
                 <a href="{% url 'detalle_pedido' pedido.id_pedido %}">Ver detalle</a>
                     <i class="fas fa-shopping-cart"></i> Detalle pedido 
                 </a>
+                <!--el caso lo pide, el usuario puede cancelar o aprobar el pedido-->
+                                <button class="btn btn-danger btn-sm mb-2">Cancelar mi pedido</button>
             </div>
         </div>
         {% endfor %}
@@ -50,5 +52,7 @@
 
         
 </body>
+
+
 
 </html>
