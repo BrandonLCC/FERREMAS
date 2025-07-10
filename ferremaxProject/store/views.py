@@ -354,6 +354,26 @@ def compras_usuario(request):
 
 def Gestion_pedidos(Request):
     pedido = Pedido.objects.filter(estado='Pendiente')  
+
+# asegurar que los usuario no sean administradores no ingresen por una url
+    if not Request.user.is_superuser:
+        messages.error(Request, "No tienes permiso para acceder a esta página.")
+        print("Usuario no autorizado, redirigiendo a la página de inicio.")
+        return redirect('home')
+    #fin restriccion
+
+# asegurar que si no hay cuenta de usuario no pueda acceder a la pagina
+    if not Request.user.is_authenticated:
+        messages.error(Request, "Debes iniciar sesión como admin para acceder a esta página.")
+        print("Usuario no autenticado, redirigiendo a la página de inicio de sesión.")
+        return redirect('login')
+
+    return render(Request, 'admin/pedidos_pendientes.html', {
+        'pedidos': pedido
+    })
+
+    
+
     return render(Request, 'admin/pedidos_pendientes.html', {
         'pedidos': pedido
     })

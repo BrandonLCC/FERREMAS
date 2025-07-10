@@ -39,3 +39,5 @@ class PedidoAdmin(admin.ModelAdmin):
     list_display = ('id_pedido', 'fecha_pedido', 'monto_pedido', 'estado', 'id_usuario')
     list_filter = ('estado', 'fecha_pedido')
     search_fields = ('id_usuario__nombre_usuario',)
+
+
