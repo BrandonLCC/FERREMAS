@@ -36,6 +36,8 @@
                         <th scope="col">Correo de contacto</th>
                         <th scope="col">Monto Pedido</th>
                         <th scope="col">Fecha pedido</th>
+                        <th scope="col">Metodo de envio</th>
+
                         <th scope="col">Estado pedido</th>
                         <th scope="col">Metodo de pago</th>
 
@@ -49,26 +51,9 @@
                         <td>{{ listapedidos.id_usuario.correo_usuario }}</td>
                         <td>{{ listapedidos.monto_pedido }}</td>
                         <td>{{ listapedidos.fecha_pedido }}</td>
+                        <td>{{ listapedidos.metodo_envio }}</td>
                         <td>{{ listapedidos.estado }}</td>
-                        <td>
-                            <div class="container ">
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        ¿Como pago?
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><button class="dropdown-item" type="submit" name="metodo_pago"
-                                                value="Efectivo">Efectivo</button></li>
-                                        <li><button class="dropdown-item" type="submit" name="metodo_pago"
-                                                value="Transferencia">Transferencia</button></li>
-                                        <li><button class="dropdown-item" type="submit" name="metodo_pago"
-                                                value="Tarjeta">Tarjeta</button></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-
+                        <td>{{ listapedidos.metodo_pago }}</td>
 
                         <td class="text-center">
                             <form method="post"

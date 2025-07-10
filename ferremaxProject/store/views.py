@@ -260,18 +260,21 @@ def Iniciar_pago(request):
     
     
     #Simulacion de datos
-    buy_order = "ejemplo100"# Este número debe ser único para cada transacción.
-    session_id = "sesionejemplo123" #este valor es devuelto al final de la transacción. 
-    amount = total_con_envio #Monto de la transacción. Máximo 2 decimales para USD. 
-    #Datos de la orden
+    buy_order = "ejemplo100"
+    session_id = "sesionejemplo123"
+    amount = total_con_envio 
 
+    
     try:
         usuario = Usuario.objects.get(correo_usuario=request.user.email)  
         #Registro del pedido en la base de datos
         pedido_usuario = Pedido.objects.create(
                 monto_pedido=amount,
-                id_usuario=usuario #en caso de que de error:usuario.id 
+                id_usuario=usuario,
+                #metodo_envio=metodo_entrega,
+                #metodo_pago=metodo_pago
             )
+        
         print("pedido realizada:", pedido_usuario)
     
     except ValueError as e:
@@ -372,7 +375,7 @@ def cambiar_estado_pedido(request, id_pedido, nuevo_estado):
             id_usuario=pedido.id_usuario,
             nro_boleta=f"BO-{pedido.id_pedido}",  
             total=pedido.monto_pedido,
-            metodo_pago=metodo_pago,        
+            #metodo_pago=metodo_pago,        
             estado_pago='pagado',         
         )
 

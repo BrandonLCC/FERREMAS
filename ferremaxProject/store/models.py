@@ -85,6 +85,14 @@ class MetodoEntrega(models.Model):
     def __str__(self):
         return f"{self.carrito} - {self.get_tipo_envio_display()}"
 
+
+#Con estas clases obtenemos los nombres de metodo de envio y metodo de pago de los pedidos
+class MetodoPago(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre
+
 #Un usuario tiene muchos pedido
 #Una pedido tiene un metodo de envio
 #una pedido tiene la id detalle compra o carrito 
@@ -100,6 +108,8 @@ class Pedido(models.Model):
     monto_pedido =  models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     estado = models.CharField(max_length=20,choices=ESTADOS, default='Pendiente')
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    #metodo_envio = models.ForeignKey(MetodoEntrega, on_delete=models.SET_NULL, null=True, blank=True)
+    #metodo_pago = models.ForeignKey(MetodoPago, on_delete=models.SET_NULL, null=True, blank=True)
 
 def __str__(self):
     return f"Pedido #{self.id_pedido} - {self.estado}" 
@@ -119,12 +129,7 @@ class Ventas(models.Model):
     nro_boleta = models.CharField(max_length=20, blank=True, null=True)
     fecha_venta = models.DateTimeField(default=timezone.now)
     total = models.DecimalField(max_digits=10, decimal_places=2) 
-    metodo_pago = models.CharField(max_length=50, choices=[
-        ('efectivo', 'Efectivo'),
-        ('transferencia', 'Transferencia'),
-        ('Tarjeta', 'Tarjeta'),
-
-    ])
+   # metodo_pago = models.ForeignKey(MetodoPago, on_delete=models.SET_NULL, null=True)
     estado_pago = models.CharField(max_length=20, choices=[
         ('pagado', 'Pagado'),
         ('fallido', 'Fallido'),
