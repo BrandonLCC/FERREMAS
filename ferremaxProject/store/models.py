@@ -33,7 +33,7 @@ class Producto(models.Model):
 
 class Usuario(models.Model):
     nombre_usuario =  models.CharField(max_length=100)
-    correo_usuario = models.CharField(max_length=100)
+    correo_usuario = models.CharField(unique=True, max_length=100)
     contraseña_usuario = models.CharField(max_length=100)
 
 

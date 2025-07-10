@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferremax - Detalle Producto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremax - Detalle Producto</title>
 
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
 
-    <link rel="stylesheet" href="{% static 'css/detalle-producto-1.css' %}">
-    
-    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'css/detalle-producto-2.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
 
-      <!-- Navbar -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -122,58 +123,119 @@
               <span></span>
               <span class="cantidad-carro-nav badge badge-pill bg-danger py-2">
                 <i class="fas fa-shopping-cart "></i>
-                </span>
+              </span>
             </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  
-    <!-- texto para regresar atra -->
 
-    <div class="container mt-3">
+  <!-- texto para regresar atra -->
 
+  <div class="container mt-3">
 
+<div class=" my-2 py-3">
+<a href="{% url 'home' %}" class="btn-principal my-4">
+      <i class="fas fa-arrow-left"></i> Regresar
+    </a>
+</div>
+    
 
-        <a href="{% url 'home' %}" class="btn btn-primary">
-            <i class="fas fa-arrow-left"></i> Regresar
-        </a>
     <!-- Detalle Producto -->
-    <div class="container mt-5 mb-5">
-        <div class="row producto-detalle-container">
-            <div class="col-md-6 d-flex align-items-center justify-content-center">
-                {% if producto.imagen_producto %}
-                <img src="{{ producto.imagen_producto.url }}" class="imagen_producto" alt="{{ producto.nombre_producto }}">
-                {% endif %}
-            </div>
-            <div class="col-md-6">
-                <p class="nom_producto">{{ producto.nombre_producto }}</p>
-                <p class="precio_producto">${{ producto.precio_producto }}</p>
-                <p class="descripcion_producto">{{ producto.descripcion_producto }}</p>
-                <p class="descripcion_producto">codigo: {{ producto.codigo_producto }}</p>
-            
-            {% if user.is_authenticated %}
-                <div class="formulario-compra">
-                    <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary btn-agregar">
-                            <i class="fas fa-cart-plus"></i> Agregar al Carro
-                        </button>
-                    </form>
-                </div>
-            {% else %}
-                <div class="alert alert-warning" role="alert">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Necesitas iniciar sesión para agregar productos al carro. 
-                        <a  href="{% url 'inicio_sesion' %}" class="alert-link  ">Iniciar sesión aquí</a>
-                </div>
-            
-            {% endif %}</div>
-            </div>
+    <div class="container mt-3 mb-5">
+
+      <div class="row producto-detalle-container">
+
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          {% if producto.imagen_producto %}
+          <img src="{{ producto.imagen_producto.url }}" class="imagen_producto" alt="{{ producto.nombre_producto }}">
+          {% endif %}
         </div>
+        <div class="col-md-6">
+          <p class="nom_producto">{{ producto.nombre_producto }}</p>
+          <p class="precio_producto">Precio: ${{ producto.precio_producto }}</p>
+          <p class="descripcion_producto"><b>Stock: </b> {{ producto.cantidad_producto }}</p>
+          <p class="descripcion_producto"><b>Categoria: </b> {{ producto.id_categoria.nombre_categoria }}</p>
+          <p class="descripcion_producto"><b>Codigo: </b>{{ producto.codigo_producto }}</p>
+      
+          {% if user.is_authenticated %}
+          <div class="formulario-compra mx-auto  text-center ">
+            <form class="mx-auto text-center" action="{% url 'agregar_al_carrito' producto.id %}" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn ms-5 btn-principal">
+                <i class="fas fa-cart-plus"></i> Agregar al Carro
+              </button>
+            </form>
+          </div>
+          {% else %}
+          <div class="alert alert-warning text-center" role="alert">
+            <i class="fas fa-exclamation-triangle"></i>
+            Necesitas iniciar sesión o registrarte para agregar productos al carro.
+
+            <div class="text-center mt-2">
+              <a href="{% url 'inicio_sesion' %}?next={{ request.path }}" class="alert-link me-2">Iniciar sesión
+                aquí</a>
+              <a href="{% url 'registro' %}?next={{ request.path }}" class="alert-link ms-2">Crear una cuenta</a>
+            </div>
+          </div>
+
+        </div>
+
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <hr class="mx-auto col-11">
+
+  <!-- Detalle Producto -->
+  <div class="container mt-5 mb-5">
+
+    <div class="row producto-detalle-container">
+       <h6 >Descripción principal del producto</h6>
+          <p class="descripcion_producto">{{ producto.descripcion_producto }}</p>
+
+    </div>
+  </div>
+
+
+  <footer class="text-center mt-5">
+    <!-- Grid container -->
+    <div class="pt-3">
+      <img src="{% static  'images/logo-ferremas.png' %}" height="40" alt="MDB Logo" loading="lazy" />
+
     </div>
 
+    <div class="container pt-4">
+      <!-- Iconos -->
+      <section class="mb-4 mx-auto">
+        <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg link-color-f m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+
+        <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg link-color-f m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+
+        <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg link-color-f m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-google"></i></a>
+
+        <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg link-color-f m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+
+      </section>
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="footer-final text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2025 Copyright
+    </div>
+    <!-- Copyright -->
+  </footer>
 </body>
+
 </html>

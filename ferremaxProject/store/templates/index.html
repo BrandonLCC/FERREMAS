@@ -32,23 +32,39 @@
         </a>
         <!-- links derechos -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          {% if estado == 'usuarioAutenticado' %}
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'Pedidos_pendientes' %}">
               <i class="fas fa-hourglass-half"></i>
               Mis pedidos
             </a>
-
-
           </li>
+          {% else %}
+          <a class="link-diseño-nav nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+            <i class="fas fa-hourglass-half"></i>
+            Mis pedidos
+          </a>
+          {% endif %}
 
+          {% if estado == 'usuarioAutenticado' %}
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
               <i class="nav-icons fas fa-check-circle"></i>
               Historial compras
             </a>
 
+          </li>
+          {% else %}
+
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Historial compras
+            </a>
 
           </li>
+          {% endif %}
 
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'registro' %}">
@@ -90,6 +106,16 @@
               </li>
             </ul>
           </li>
+
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+          <li class="nav-item mx-1">
+            <a class="link-diseño-nav nav-link" href="{% url 'Gestion_pedidos' %}">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Gestion Pedidos
+            </a>
+          </li>
+          {% endif %}
+
         </ul>
       </div>
       <!-- links izquierdos -->
@@ -125,7 +151,7 @@
               <span></span>
               <span class="cantidad-carro-nav badge badge-pill bg-danger py-2">
                 <i class="fas fa-shopping-cart "></i>
-                </span>
+              </span>
             </a>
           </li>
         </ul>
@@ -307,7 +333,7 @@
       <div class="titulo-producto ">
         <h3 class="ms-2 mt-1 text-white text-center">
           <i class="fas fa-hard-hat text-white me-2"></i>
-  Materiales de Seguridad
+          Materiales de Seguridad
         </h3>
       </div>
 
@@ -345,17 +371,14 @@
         Conversor de Divisas USD/CLP
       </button>
     </div>
+
     <div class="collapse" id="divisaCollapse">
       <!-- Aquí irá el conversor de divisas -->
       <div id="contenedor-conversor"></div>
     </div>
   </div>
-
-
   <footer class=" text-center bg-body-tertiary">
-    <!-- Grid container -->
     <div class="container p-4">
-      <!--Grid row-->
       <div class="row">
         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
           <h5 class="text-uppercase">Sobre nostros</h5>
@@ -397,8 +420,6 @@
       </div>
     </div>
 
-
-    <!-- Grid container -->
     <div class="container pt-4">
       <!-- Iconos -->
       <section class="mb-4 mx-auto">

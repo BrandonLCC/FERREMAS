@@ -174,9 +174,15 @@ def registro_usuario(request):
 
                 )
                 messages.success(request, f"El usuario:{username} ha sido creado")
-                return redirect('home')
+                next_url = request.GET.get('next')
+                if next_url:
+                    return redirect(next_url)
+                else:
+                    return redirect('home')  
+                          
     else:
         form = RegistroUsuarioForm()
+
 
     return render(request, 'registro_usuario.html',{ 'form' : form } )
 
@@ -302,9 +308,10 @@ def Resultado_pago(request):
     #token = request.GET.get("token_ws")
     try:
         pedido = Pedido.objects.select_related('id_usuario').latest('fecha_pedido')
+
     except Pedido.DoesNotExist:
-        pedido = None  # O redirecciona a una vista apropiada, o muestra un mensaje
-        # Por ejemplo: return render(request, 'store/error_pedido.html')
+        pedido = None  # O redireccionar a una vista 
+
     return render(request, 'resultado_pago.html',{"pedido":pedido}) 
 
 
@@ -340,4 +347,8 @@ def compras_usuario(request):
         ventas = [] 
 
     return render(request, 'historial_compras.html', {"ventas":ventas}) 
+
+
+def Gestion_pedidos(Request):
+    return render(Request, 'admin/pedidos_pendientes.html') 
 

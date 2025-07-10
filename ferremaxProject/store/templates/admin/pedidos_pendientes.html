@@ -1,0 +1,57 @@
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/lista_contacto.css' %}">
+
+</head>
+<body>
+    
+    <div class = "container mt-5 mb-5">
+        <h2  class = "titulo my-2 p-2 text-center">Lista de pedidos</h2>
+        <div class = "table-responsive">
+            <table class = "table  align-middle">
+                <thead class = "table-color">
+                    <tr>
+                        <th scope = "col">ID pedido</th>
+                        <th scope = "col">Correo de contacto</th>
+                        <th scope = "col">Monto Pedido</th>
+                        <th scope = "col">Fecha pedido</th>
+                        <th scope = "col">Estado pedido</th>
+
+                        <th scope = "col" class = "text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contacto in contactos %}
+                    <tr class = "text-light">
+                        <td>{{ contacto.nombre }}</td>
+                        <td>{{ contacto.email }}</td>
+                        <td>{{ contacto.mensaje }}</td>
+                        <td class = "text-center">
+                            <a href="{% url 'contacto_detalle' contacto.pk %}" class = "btn boton-1 btn-sm m-1">Ver</a>
+                            <a href="{% url 'contacto_editar' contacto.pk %}" class = "btn boton-3 btn-sm m-1">Editar</a>   
+                            <form method="POST" action="{% url 'contacto_eliminar' contacto.pk %}" style = "display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class = "btn boton-2 btn-sm m-1 ">Eliminar</button>
+                            </form>  
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+</body>
+</html>
+    

@@ -42,8 +42,8 @@ urlpatterns = [
     #api rest
     path('api/', include(router.urls)),
 
-    #Interfaz gestion
-   # path('Confirmar_pedidos/', views.Confirmar_pedidos, name='Confirmar_pedidos'),
+   #Interfaz gestion
+   path('Gestion_pedidos/', views.Gestion_pedidos, name='Gestion_pedidos'),
 
 ]
    # path('inicio_sesion/', LoginView.as_view(template_name='inicio_sesion.html'), name='inicio_sesion'),

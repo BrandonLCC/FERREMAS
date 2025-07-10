@@ -41,8 +41,10 @@
                  {{ form.as_p }}
                  
                  <!-- Botón de enviar -->
-                 <button type="submit" id="submit" class="btn btn-primary">Registrarse</button>
-                 <a class="nav-link" href="{% url 'home' %}">volver</a>
+                 <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-primary">Registrarse</button>
+                  <a href="javascript:history.back()" class="btn btn-secondary">Volver</a>
+                </div>
 
              </form>
              {% endblock %}
