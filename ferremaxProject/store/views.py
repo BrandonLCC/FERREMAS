@@ -50,8 +50,13 @@ def listaProductos(request):
 
 def detalle_productos(request, pk):
     producto = get_object_or_404(Producto.objects.select_related('id_categoria').all(), pk=pk)  
+    user = request.user
 
-    return render(request, 'detalle_producto.html', {'producto': producto})
+    if user.is_active:
+        estado = 'usuarioAutenticado'
+    else:
+        estado = 'false'
+    return render(request, 'detalle_producto.html', {'producto': producto,'estado':estado})
 
 def carro_compra(request):
     return render(request, 'carro_compra.html')
@@ -89,7 +94,14 @@ def agregar_al_carrito(request, producto_id):
     else:
         form = CantidadProductoForm()
 
-    return render(request, 'detalle_producto.html', {'producto': productos, 'form': form})
+    user = request.user
+
+    if user.is_active:
+        estado = 'usuarioAutenticado'
+    else:
+        estado = 'false'
+
+    return render(request, 'detalle_producto.html', {'producto': productos, 'form': form,'estado':estado})
 
 @login_required
 def carro_compra(request):
@@ -228,11 +240,21 @@ def Metodo_envio(request):
     costo_envio = 5000 
     total_con_envio = total_carrito + costo_envio
     
+    user = request.user
+
+    if user.is_active:
+        estado = 'usuarioAutenticado'
+    else:
+        estado = 'false'
+
+
     return render(request, 'metodo_envio.html' , {
                             'elementos': elementos,
                             'total_carrito': total_carrito,
                             'costo_envio': costo_envio,
-                            'total_con_envio': total_con_envio,}
+                            'total_con_envio': total_con_envio,
+                            'estado':estado,
+                            }
                   )
 
 

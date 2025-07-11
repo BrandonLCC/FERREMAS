@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="{% static 'css/style-8.css' %}">
-    <link rel="stylesheet" href="{% static 'css/metodo_envio.css' %}">
+    <link rel="stylesheet" href="{% static 'css/metodo_envio-1.css' %}">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -23,28 +23,151 @@
 </head>
 
 <body>
-    <!-- NAV -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Ferremas</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'inicio_sesion' %}"><i class="fas fa-user"></i> Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Crear cuenta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'carro_compra' %}"><i class="fas fa-shopping-cart"></i> Carro</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Logo empresa -->
+        <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'home' %}">
+          <img src="{% static  'images/logo-ferremas.png' %}" height="40" alt="MDB Logo" loading="lazy" />
+        </a>
+        <!-- links derechos -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          {% if estado == 'usuarioAutenticado' %}
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link" href="{% url 'Pedidos_pendientes' %}">
+              <i class="fas fa-hourglass-half"></i>
+              Mis pedidos
+            </a>
+          </li>
+          {% else %}
+          <a class="link-diseño-nav nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+            <i class="fas fa-hourglass-half"></i>
+            Mis pedidos
+          </a>
+          {% endif %}
+
+          {% if estado == 'usuarioAutenticado' %}
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Historial compras
+            </a>
+
+          </li>
+          {% else %}
+
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Historial compras
+            </a>
+
+          </li>
+          {% endif %}
+
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link" href="{% url 'registro' %}">
+              <i class="fas fa-user-plus"></i>
+
+              Crear cuenta
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link active" aria-current="page" href="{% url 'inicio_sesion' %}">
+              <i class="fas fa-sign-in-alt"></i>
+
+              Iniciar sesión
+
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="link-diseño-nav nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bars me-1"></i> Categorias
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=1">Herramientas
+                  Manuales</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=2">Materiales Básicos</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=3">Equipos de
+                  Seguridad</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=4">Tornillos y
+                  Anclajes</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=5">Fijaciones y
+                  Adhesivos</a>
+              </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=6">Equipos de
+                  Medición</a>
+              </li>
+            </ul>
+          </li>
+
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+         <li class="nav-item dropdown">
+            <a class="link-diseño-nav nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bars me-1"></i> Administradores
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li class="nav-item mx-1">
+            <a class="dropdown-item py-3" href="{% url 'Gestion_pedidos' %}">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Gestion de Pedidos 
+            </a>
+          </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=2">Preparar y entregar</a>
+              </li>
+          </li>
+          {% endif %}
+
+        </ul>
+      </div>
+      <!-- links izquierdos -->
+      <div class="d-flex align-items-center">
+        <nav class="navbar bg-body-tertiary">
+          <div class="container-fluid">
+            <form class="d-flex input-group w-auto">
+              <input type="search" class="form-control" placeholder="Buscar Producto" aria-label="Search"
+                aria-describedby="search-addon" />
+              <span class="input-group-text border-0" id="search-addon">
+                <i class="fas fa-search"></i>
+              </span>
+            </form>
+          </div>
+        </nav>
+        <ul class="navbar-nav">
+
+          <!-- Badge -->
+          <li class="nav-item mx-1">
+            {% if estado == 'usuarioAutenticado' %}
+            <p class="nav-autenticacion-1">
+              <b>Activo ●</b>
+            </p>
+            {% else %}
+            <p class=" nav-autenticacion-2">
+              <b>Sin cuenta ●</b>
+            </p>
+            {% endif %}
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'carro_compra' %}">
+              <span></span>
+              <span class="cantidad-carro-nav badge badge-pill bg-danger py-2">
+                <i class="fas fa-shopping-cart "></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
     <!-- Contenedor principal -->
     <div class="container mt-4">

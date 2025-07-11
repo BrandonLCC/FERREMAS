@@ -11,7 +11,7 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
-    <link rel="stylesheet" href="{% static 'css/resultado_pago.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resultado_pago-1.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTxTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -22,6 +22,8 @@
 </head>
 
 <body>
+
+    
     <div class="confirmation-header"></div>
         <h1>Muchas gracias {{ pedido.id_usuario.nombre_usuario }}</h1>
         <h1>Hemos recibido tu orden</h1>

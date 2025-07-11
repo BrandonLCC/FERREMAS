@@ -19,8 +19,7 @@
 </head>
 
 <body>
-
-  <!-- Navbar -->
+ <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,23 +29,39 @@
         </a>
         <!-- links derechos -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          {% if estado == 'usuarioAutenticado' %}
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'Pedidos_pendientes' %}">
               <i class="fas fa-hourglass-half"></i>
               Mis pedidos
             </a>
-
-
           </li>
+          {% else %}
+          <a class="link-diseño-nav nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+            <i class="fas fa-hourglass-half"></i>
+            Mis pedidos
+          </a>
+          {% endif %}
 
+          {% if estado == 'usuarioAutenticado' %}
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'compras_usuario' %}">
               <i class="nav-icons fas fa-check-circle"></i>
               Historial compras
             </a>
 
+          </li>
+          {% else %}
+
+          <li class="nav-item">
+            <a class="link-diseño-nav nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Historial compras
+            </a>
 
           </li>
+          {% endif %}
 
           <li class="nav-item">
             <a class="link-diseño-nav nav-link" href="{% url 'registro' %}">
@@ -88,6 +103,25 @@
               </li>
             </ul>
           </li>
+
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+         <li class="nav-item dropdown">
+            <a class="link-diseño-nav nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bars me-1"></i> Administradores
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li class="nav-item mx-1">
+            <a class="dropdown-item py-3" href="{% url 'Gestion_pedidos' %}">
+              <i class="nav-icons fas fa-check-circle"></i>
+              Gestion de Pedidos 
+            </a>
+          </li>
+              <li><a class="dropdown-item py-3" href="{% url 'lista_productos' %}?id_categoria=2">Preparar y entregar</a>
+              </li>
+          </li>
+          {% endif %}
+
         </ul>
       </div>
       <!-- links izquierdos -->
