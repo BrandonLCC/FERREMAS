@@ -9,29 +9,63 @@
   {% load bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
-  <link rel="stylesheet" href="{% static 'css/inicio_sesion.css' %}">
+  <link rel="stylesheet" href="{% static 'css/inicio_sesion-2.css' %}">
 
 </head>
 
 <body>
 
-<!-- Imagen de fondo ocupando toda la pantalla -->
-<img src="{% static 'images/fondo-registro-inicio.png' %}" class="img-login" alt="bienvenida">
-
 <!-- Contenedor centrado -->
-<section class="formulario-padre col-6 d-flex justify-content-center align-items-center">
-  <div class="formulario-container col-12 col-sm-10 col-md-8 col-lg-6">
-    {% block content %}
-      <form class="diseñoform p-4 rounded" id="miFormulario" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" id="submit" class="btn btn-primary">Iniciar sesión</button>
-        <a href="javascript:history.back()" class="btn btn-secondary">Volver</a>
+<section class="formulario-padre col-10 d-flex justify-content-center align-items-center">
 
-      </form>
-    {% endblock %}
-  </div>
-</section>
+
+   <div class = "div1  col-10 col-md-5 col-lg-4 col-sm-7 p-3 ">
+            <div class="h1formulario  ">
+                <!-- <img class = "col-3 "src="./assets/img/logoEmpresa.png" alt=""> -->
+                <h1 class = "titulo text-center pt-3" >Iniciar sesión</h1>
+                
+                <h6 class = "text-center mb-5" id = "validar">Porfavor Ingrese los datos correspondientes</h6>
+            </div>
+            
+            <!-- COMIENZO FORMULARIO -->
+             <!-- METODO POST IMPORTANTE PARA ENVIAR LOS DATOS DEL USUARIO -->
+             {% if messages %}
+            {% for message in messages %}
+            <div class="notificaction mb-2 {{message.tags}}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+             {% block content %}
+             
+             <form id="miFormulario" method="post" class="col-12">
+                 {% csrf_token %}
+                 <!-- Renderiza el formulario completo -->
+                 <div class="my-5">
+                 {{ form.as_p }}
+
+                 </div>
+                                 <hr class="my-3">
+                 <!-- Botón de enviar -->
+
+                 <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn botondiseno">Iniciar sesión</button>
+                  <a href="javascript:history.back()" class="btn btn-secondary">Volver</a>
+                </div>
+                                 <hr class="my-3">
+
+
+             </form>
+             {% endblock %}
+             <footer class="footer2  mt-4">
+                <div class="mx-auto col-3">
+                <img   src="{% static  'images/logo-ferremas.png' %}" height="40" alt="MDB Logo" loading="lazy" />
+                </div>
+             </footer>
+        </div>
+
+        </section>
 
 
 </body>

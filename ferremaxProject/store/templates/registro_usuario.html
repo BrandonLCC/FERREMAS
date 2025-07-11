@@ -8,7 +8,7 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
+    <link rel="stylesheet" href="{% static 'css/registro-1.css' %}">
 
 </head>
 <body>
@@ -22,6 +22,19 @@
         </div>
         <!--DIV 2-->
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+          
+        </div>
+    </div>
+</section>
+   <div class = "container ">
+        <div class = "div1  col-10 col-md-5 col-lg-4 col-sm-7 p-3 ">
+            <div class="h1formulario  ">
+                <!-- <img class = "col-3 "src="./assets/img/logoEmpresa.png" alt=""> -->
+                <h1 class = "titulo text-center pt-3" >Registro de usuario</h1>
+                
+                <h6 class = "text-center mb-5" id = "validar">Porfavor Ingrese los datos correspondientes</h6>
+            </div>
+            
             <!-- COMIENZO FORMULARIO -->
              <!-- METODO POST IMPORTANTE PARA ENVIAR LOS DATOS DEL USUARIO -->
              {% if messages %}
@@ -36,22 +49,27 @@
              
              <form id="miFormulario" method="post" class="col-12">
                  {% csrf_token %}
-                 
                  <!-- Renderiza el formulario completo -->
                  {{ form.as_p }}
-                 
+                                 <hr class="my-3">
                  <!-- Botón de enviar -->
+
                  <div class="d-flex justify-content-between">
-                  <button type="submit" class="btn btn-primary">Registrarse</button>
+                  <button type="submit" class="btn botondiseno">Registrarse</button>
                   <a href="javascript:history.back()" class="btn btn-secondary">Volver</a>
                 </div>
+                                 <hr class="my-3">
+
 
              </form>
              {% endblock %}
-             
+             <footer class="footer2  mt-4">
+                <div class="mx-auto col-3">
+                <img   src="{% static  'images/logo-ferremas.png' %}" height="40" alt="MDB Logo" loading="lazy" />
+                </div>
+             </footer>
         </div>
-    </div>
-</section>
 
+        
 </body>
 </html>
