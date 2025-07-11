@@ -188,43 +188,12 @@ def registro_usuario(request):
 
 
 def Metodo_envio(request):
-   # Asegúrate de que esto retorne un número (no string)
-    carrito = get_object_or_404(Carrito, usuario=request.user)
-    elementos = ElementoCarrito.objects.filter(carrito=carrito)
-    total_carrito = 0
-    for elemento in elementos:
-        elemento.total = elemento.producto.precio_producto * elemento.cantidad
-        total_carrito += elemento.total
-
-    costo_envio = 5000 
-
-    total_con_envio = total_carrito + costo_envio
-    
-    return render(request, 'metodo_envio.html' , {
-                            'elementos': elementos,
-                            'total_carrito': total_carrito,
-                            'costo_envio': costo_envio,
-                            'total_con_envio': total_con_envio,}
-                  )
-
-
-def calcular_total_con_envio(user):
-    carrito = get_object_or_404(Carrito, usuario=user)
-    elementos = ElementoCarrito.objects.filter(carrito=carrito)
-    total_carrito = 0
-    for elemento in elementos:
-        elemento.total = elemento.producto.precio_producto * elemento.cantidad
-        total_carrito += elemento.total
-
-    costo_envio = 5000
-    total_con_envio = total_carrito + costo_envio
-    return total_con_envio
-
-def seleccionar_metodo_envio(request):
+    # Procesar formulario POST
     if request.method == 'POST':
         metodo_envio = request.POST.get('metodo_envio')
-
-        if metodo_envio == '5000':  
+        print(f"Método de envío seleccionado: {metodo_envio}")
+        
+        if metodo_envio == '5000':  # Envío a domicilio
             region = request.POST.get('region')
             ciudad = request.POST.get('ciudad')
             direccion = request.POST.get('direccion')
@@ -235,21 +204,65 @@ def seleccionar_metodo_envio(request):
                 'direccion': direccion,
                 'costo': 5000,
             }
-        else:
+            print("Guardado envío a domicilio con costo 5000")
+        else:  # Retiro en tienda
             request.session['envio'] = {
                 'tipo': 'tienda',
                 'direccion': 'sede metropolitana',
                 'region': 'metropolitana',
                 'costo': 0,
             }
+            print("Guardado retiro en tienda con costo 0")
+        
+        print(f"Información de envío guardada en sesión: {request.session['envio']}")
+        return redirect('iniciar_pago')
+    
+    # Mostrar formulario GET
+    carrito = get_object_or_404(Carrito, usuario=request.user)
+    elementos = ElementoCarrito.objects.filter(carrito=carrito)
+    total_carrito = 0
+    for elemento in elementos:
+        elemento.total = elemento.producto.precio_producto * elemento.cantidad
+        total_carrito += elemento.total
 
-        return redirect('confirmar_pago')  
+    costo_envio = 5000 
+    total_con_envio = total_carrito + costo_envio
+    
+    return render(request, 'metodo_envio.html' , {
+                            'elementos': elementos,
+                            'total_carrito': total_carrito,
+                            'costo_envio': costo_envio,
+                            'total_con_envio': total_con_envio,}
+                  )
 
-    return redirect('carrito')  
+
+def calcular_total_con_envio(user, request=None):
+    carrito = get_object_or_404(Carrito, usuario=user)
+    elementos = ElementoCarrito.objects.filter(carrito=carrito)
+    total_carrito = 0
+    for elemento in elementos:
+        elemento.total = elemento.producto.precio_producto * elemento.cantidad
+        total_carrito += elemento.total
+
+    # Obtener costo de envío desde la sesión
+    costo_envio = 0
+    if request and 'envio' in request.session:
+        costo_envio = request.session['envio']['costo']
+        print(f"Costo de envío desde sesión: {costo_envio}")
+    else:
+        print("No hay información de envío en la sesión")
+        costo_envio = 0  # Sin información de envío, no agregar costo adicional
+    
+    total_con_envio = total_carrito + costo_envio
+    print(f"Total carrito: {total_carrito}, Costo envío: {costo_envio}, Total final: {total_con_envio}")
+    return total_con_envio
+
+
 
 def Iniciar_pago(request):
 
-    total_con_envio = calcular_total_con_envio(request.user)
+    total_con_envio = calcular_total_con_envio(request.user, request)
+    print(f"Total final enviado a Webpay: {total_con_envio}")
 
     #Codigo integracion, Key test, Modo = test 
     tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS,
