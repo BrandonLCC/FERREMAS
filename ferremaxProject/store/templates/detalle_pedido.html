@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferremas</title>
-
+    <title>Detalle de Pedidos - Ferremas</title>
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
@@ -20,35 +19,372 @@
 
 </head>
  
+<style> 
+    body {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+        min-height: 100vh;
+        font-family: 'Segoe UI', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+        position: relative;
+        color: #495057;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(220, 53, 69, 0.02) 50px,
+                rgba(220, 53, 69, 0.02) 100px
+            );
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .main-container {
+        padding: 40px 20px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 2;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-bottom: 50px;
+        color: #495057;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 50px 30px;
+        border-radius: 12px;
+        border: 1px solid #dc3545;
+        box-shadow: 
+            0 4px 20px rgba(220, 53, 69, 0.12),
+            0 1px 3px rgba(220, 53, 69, 0.08);
+    }
+
+    .header-section h1 {
+        font-size: 2.8rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #dc3545;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+    }
+
+    .header-section .subtitle {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+        color: #6c757d;
+        font-weight: 400;
+    }
+
+    .ferremas-logo {
+        display: inline-block;
+        margin-right: 12px;
+        font-size: 2.8rem;
+        color: #c82333;
+    }
+
+
+    .orders-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 
+            0 2px 12px rgba(0, 0, 0, 0.08),
+            0 1px 3px rgba(0, 0, 0, 0.06);
+        margin-bottom: 30px;
+        overflow: hidden;
+        border: 2px solid #000000;
+        position: relative;
+    }
+
+    .order-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #dc3545 0%, #c82333 100%);
+    }
+
+    .order-header {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        padding: 25px;
+        text-align: center;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .order-id {
+        font-size: 1.3rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .order-id i {
+        margin-right: 12px;
+        font-size: 1.3rem;
+        color: white;
+    }
+
+    .order-body {
+        padding: 30px;
+        background: white;
+    }
+
+    .product-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        padding: 18px;
+        background: #f8f9fa;
+        border-radius: 6px;
+        border-left: 3px solid #dc3545;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .info-item i {
+        font-size: 1.2rem;
+        color: #dc3545;
+        margin-right: 15px;
+        width: 25px;
+        text-align: center;
+    }
+
+    .info-content {
+        flex: 1;
+    }
+
+    .info-label {
+        font-size: 0.85rem;
+        color: #6c757d;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 6px;
+    }
+
+    .info-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #dc3545;
+    }
+
+    .price-highlight {
+        color: #198754;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .quantity-badge {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin-top: 6px;
+        letter-spacing: 0.3px;
+        box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+    }
+
+    .back-button {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        border: 1px solid #dc3545;
+        color: white;
+        padding: 16px 32px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 40px;
+        letter-spacing: 0.3px;
+    }
+
+    .back-button i {
+        margin-right: 12px;
+        font-size: 1.3rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 80px 30px;
+        background: linear-gradient(145deg, #ecf0f1 0%, #bdc3c7 100%);
+        border-radius: 20px;
+        box-shadow: 
+            0 15px 35px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        border: 2px solid #95a5a6;
+    }
+
+    .empty-state i {
+        font-size: 5rem;
+        color: #95a5a6;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .empty-state h3 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
+
+    .empty-state p {
+        color: #5d6d7e;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        .header-section h1 {
+            font-size: 2.5rem;
+        }
+        
+        .ferremas-logo {
+            font-size: 2.5rem;
+        }
+        
+        .product-info {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .order-header {
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .info-item {
+            padding: 15px;
+        }
+        
+        .main-container {
+            padding: 20px 15px;
+        }
+        
+        .header-section {
+            padding: 30px 15px;
+        }
+        
+        .back-button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+    }
+</style>
 <body>
-    
-    <div class="div-orden-productos row col-6">
-        <h3 class="titulo-categoria">
-            Detalle Pedidos
-        </h3>
-        
-        <p>En esta sección podrás visualizar todos los productos que seleccionaste en tu carro de compras y por los cuales realizaste el pago. Está diseñada para que puedas acceder a esta información de forma rápida y sencilla.</p>
-
-        {% for detallePedido in detalles %}
-        <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
-                <p>Nombre del producto: {{ detallePedido.id_producto.nombre_producto }}</p>
-                <P>Precio del producto:{{ detallePedido.precio_producto }}</P>
-                <P>Cantidad: {{ detallePedido.cantidad_producto }}</P>
-                <p>Id del pedido: {{ detallePedido.id_pedido_id }}</p>
-
+    <div class="main-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>
+                <i class="fas fa-file-invoice ferremas-logo"></i>
+                Ferremas - Detalle de Pedidos
+            </h1>
+            <p class="subtitle">
+                Consulte la información detallada de sus órdenes de compra. 
+                Revise los productos solicitados, cantidades, precios y el total de cada transacción comercial.
+            </p>
         </div>
-        {% endfor %}
+
+        <!-- Orders Container -->
+        <div class="orders-container">
+            {% if detalles %}
+                {% for detallePedido in detalles %}
+                <div class="order-card">
+                    <!-- Order Header -->
+                    <div class="order-header">
+                        <div class="order-id">
+                            <i class="fas fa-receipt"></i>
+                            Pedido Nº {{ detallePedido.id_pedido_id }}
+                        </div>
+                    </div>
+                    
+                    <!-- Order Body -->
+                    <div class="order-body">
+                        <div class="product-info">
+                            <!-- Product Name -->
+                            <div class="info-item">
+                                <i class="fas fa-box"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Producto</div>
+                                    <div class="info-value">{{ detallePedido.id_producto.nombre_producto }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Product Price -->
+                            <div class="info-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Precio Unitario</div>
+                                    <div class="info-value price-highlight">${{ detallePedido.precio_producto|floatformat:0 }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="info-item">
+                                <i class="fas fa-sort-numeric-up"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Cantidad</div>
+                                    <div class="quantity-badge">{{ detallePedido.cantidad_producto }} unidades</div>
+                                </div>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="info-item">
+                                <i class="fas fa-calculator"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Importe Total</div>
+                                    <div class="info-value price-highlight">
+                                        ${% widthratio detallePedido.precio_producto 1 detallePedido.cantidad_producto %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Empty State -->
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No hay información de pedidos</h3>
+                    <p>Actualmente no se encontraron detalles de pedidos para mostrar. Verifique que existan órdenes procesadas en el sistema.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="back-button">
+                <i class="fas fa-arrow-left"></i> Volver al Panel Principal
+            </a>
+        </div>
     </div>
-
-
-  </div>
-
-
-     <a href="{% url 'home' %}" class="btn btn-primary w-100 mt-2">
-                    <i class="fas fa-shopping-cart"></i> Volver a la pagina principal 
-                </a>
-
-        
 </body>
 
 </html>

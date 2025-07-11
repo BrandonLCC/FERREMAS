@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferremas</title>
-
+    <title>Pedidos Pendientes - Ferremas</title>
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
@@ -20,37 +19,423 @@
 
 </head>
 
-<body>
-    
-    <div class="div-orden-productos row col-6">
-        <h3 class="titulo-categoria">
-            Pedidos pendientes
-        </h3>
-        {% for pedido in pedidos %}
-        <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
-            <div class="card mx-auto">
-                <img src="{% static  'images/Pedido-en-espera.png' %}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                <P>Nro pedido: {{ pedido.id_pedido }} </P>
-                <P>Estado del pedido: {{ pedido.estado }}</P>
-                <P>Monto pedido:{{ pedido.monto_pedido }}</P>
-                <P>Fecha: {{ pedido.fecha_pedido }}</P>
-               
-                <a href="{% url 'detalle_pedido' pedido.id_pedido %}">Ver detalle</a>
-                    <i class="fas fa-shopping-cart"></i> Detalle pedido 
-                </a>
-                <!--el caso lo pide, el usuario puede cancelar o aprobar el pedido-->
-                                <button class="btn btn-danger btn-sm mb-2">Cancelar mi pedido</button>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+<style>
+    body {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+        min-height: 100vh;
+        font-family: 'Segoe UI', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+        position: relative;
+        color: #495057;
+    }
 
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(108, 117, 125, 0.02) 50px,
+                rgba(108, 117, 125, 0.02) 100px
+            );
+        pointer-events: none;
+        z-index: 1;
+    }
 
-     <a href="{% url 'home' %}" class="btn btn-primary w-100 mt-2">
-                    <i class="fas fa-shopping-cart"></i> Volver a la pagina principal 
-                </a>
+    .main-container {
+        padding: 40px 20px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 2;
+    }
 
+    .header-section {
+        text-align: center;
+        margin-bottom: 50px;
+        color: #495057;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 50px 30px;
+        border-radius: 12px;
+        border: 1px solid #dc3545;
+        box-shadow: 
+            0 4px 20px rgba(220, 53, 69, 0.15),
+            0 1px 3px rgba(220, 53, 69, 0.08);
+    }
+
+    .header-section h1 {
+        font-size: 2.8rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #dc3545;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+    }
+
+    .header-section .subtitle {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+        color: #6c757d;
+        font-weight: 400;
+    }
+
+    .ferremas-logo {
+        display: inline-block;
+        margin-right: 12px;
+        font-size: 2.8rem;
+        color: #c82333;
+    }
+
+    .orders-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .orders-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 340px));
+        gap: 30px;
+        margin-bottom: 50px;
+        justify-content: center;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 
+            0 2px 12px rgba(0, 0, 0, 0.08),
+            0 1px 3px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        border: 1px solid #e9ecef;
+        position: relative;
+        max-width: 340px;
+        width: 100%;
+    }
+
+    .order-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #dc3545 0%, #c82333 100%);
+    }
+
+    .order-header {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        padding: 25px 20px;
+        text-align: center;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .order-number {
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+    }
+
+    .order-status {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 500;
+        font-size: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        letter-spacing: 0.3px;
+    }
+
+    .order-image {
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+        background: #f8f9fa;
+        padding: 20px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .order-body {
+        padding: 25px;
+        background: white;
+    }
+
+    .order-info {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 6px;
+        border-left: 3px solid #dc3545;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .info-item i {
+        font-size: 1rem;
+        color: #dc3545;
+        margin-right: 12px;
+        width: 18px;
+        text-align: center;
+    }
+
+    .info-content {
+        flex: 1;
+    }
+
+    .info-label {
+        font-size: 0.8rem;
+        color: #6c757d;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 4px;
+    }
+
+    .info-value {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #dc3545;
+    }
+
+    .price-value {
+        color: #198754;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    .order-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .btn-detail {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        border: 1px solid #dc3545;
+        color: white;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.3px;
+    }
+
+    .btn-detail i {
+        margin-right: 8px;
+        font-size: 0.85rem;
+    }
+
+    .btn-cancel {
+        background: white;
+        border: 1px solid #dc3545;
+        color: #dc3545;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 6px;
+        letter-spacing: 0.3px;
+    }
+
+    .back-button {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        border: 1px solid #dc3545;
+        color: white;
+        padding: 16px 32px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 50px;
+        letter-spacing: 0.3px;
+    }
+
+    .back-button i {
+        margin-right: 12px;
+        font-size: 1.3rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 80px 40px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e9ecef;
+    }
+
+    .empty-state i {
+        font-size: 3.5rem;
+        color: #dc3545;
+        margin-bottom: 30px;
+    }
+
+    .empty-state h3 {
+        color: #dc3545;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .empty-state p {
+        color: #6c757d;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+        .header-section h1 {
+            font-size: 2.2rem;
+        }
         
+        .ferremas-logo {
+            font-size: 2.2rem;
+        }
+        
+        .orders-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+            justify-items: center;
+        }
+        
+        .order-card {
+            max-width: 100%;
+            width: 100%;
+        }
+        
+        .order-actions {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .main-container {
+            padding: 20px 15px;
+        }
+        
+        .header-section {
+            padding: 35px 20px;
+        }
+        
+        .back-button {
+            padding: 14px 28px;
+            font-size: 0.95rem;
+        }
+    }
+</style>
+
+<body>
+    <div class="main-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>
+                <i class="fas fa-clipboard-check ferremas-logo"></i>
+                Ferremas - Gestión de Pedidos Pendientes
+            </h1>
+            <p class="subtitle">
+                Panel administrativo para la supervisión y control de todas las órdenes de compra pendientes. 
+                Mantenga un seguimiento profesional de sus transacciones comerciales y el estado de sus pedidos.
+            </p>
+        </div>
+
+        <!-- Orders Container -->
+        <div class="orders-container">
+            {% if pedidos %}
+                <div class="orders-grid">
+                    {% for pedido in pedidos %}
+                    <div class="order-card">
+                        <!-- Order Header -->
+                        <div class="order-header">
+                            <div class="order-number">
+                                <i class="fas fa-receipt"></i>
+                                Pedido Nº {{ pedido.id_pedido }}
+                            </div>
+                            <div class="order-status">
+                                <i class="fas fa-clock"></i>
+                                {{ pedido.estado }}
+                            </div>
+                        </div>
+                        
+                        <!-- Order Image -->
+                        <img src="{% static 'images/Pedido-en-espera.png' %}" 
+                             class="order-image" 
+                             alt="Pedido en espera">
+                        
+                        <!-- Order Body -->
+                        <div class="order-body">
+                            <div class="order-info">
+                                <!-- Order Amount -->
+                                <div class="info-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <div class="info-content">
+                                        <div class="info-label">Importe Total</div>
+                                        <div class="info-value price-value">${{ pedido.monto_pedido|floatformat:0 }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- Order Date -->
+                                <div class="info-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <div class="info-content">
+                                        <div class="info-label">Fecha de Emisión</div>
+                                        <div class="info-value">{{ pedido.fecha_pedido|date:"d/m/Y" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Order Actions -->
+                            <div class="order-actions">
+                                <a href="{% url 'detalle_pedido' pedido.id_pedido %}" class="btn-detail">
+                                    <i class="fas fa-search"></i>
+                                    Ver Detalle
+                                </a>
+                                <button class="btn-cancel">
+                                    <i class="fas fa-ban"></i>
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <!-- Empty State -->
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No hay pedidos pendientes</h3>
+                    <p>Actualmente no existen órdenes de compra pendientes de procesamiento. Todas las transacciones han sido gestionadas correctamente.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="back-button">
+                <i class="fas fa-arrow-left"></i> Volver al Panel Principal
+            </a>
+        </div>
+    </div>
 </body>
 
 
