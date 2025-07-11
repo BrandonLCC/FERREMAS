@@ -1,56 +1,99 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="es"></html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferremas</title>
-
+    <title>Ferremás - Confirmación de Pedido</title>
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
     <link rel="stylesheet" href="{% static 'css/style-8.css' %}">
-    <!--Iconos-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        integrity="sha512-Kc323vGBEqzTxTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #212529;
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        h1, h2 {
+            color: #cc0000;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .order-details {
+            background-color: #fff;
+            border: 1px solid #ff0000;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 2px 4px rgba(204,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: #cc0000 !important;
+            border-color: #cc0000 !important;
+            transition: all 0.3s ease;
+            padding: 12px 24px;
+        }
+
+        .btn-primary:hover {
+            background-color: #990000 !important;
+            border-color: #990000 !important;
+            transform: translateY(-1px);
+        }
+
+        p {
+            margin: 12px 0;
+            padding: 8px;
+            border-bottom: 1px solid #ffcccc;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .confirmation-header {
+            border-bottom: 2px solid #cc0000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 
 <body>
-    
-    <h1>¡Muchas gracias usuario {{ pedido.id_usuario.nombre_usuario }}!</h1>
-    <h1>¡Hemos recibido tu orden!</h1>
-    <p>Pronto estaremos preparando tu pedido.</p>
-
-        <div>
-            <h2>Detalle del Pago</h2>
-           <!--<p>Estado del pago: {{ estado }}</p>--> 
-
-            <p>Estado del pago: pendiente</p>
-            <p>Número de orden: {{ pedido.estado }}</p>
-            <p>Monto pagado: ${{ pedido.monto_pedido }}</p>
-            <p>Usuario: {{ pedido.id_usuario.nombre_usuario }}</p>
-            <p>Correo de contacto: {{ pedido.id_usuario.correo_usuario }}</p>
-
-            <p>Fecha del pedido: {{ pedido.fecha_pedido }}</p>
-
-        </div>
-    
+    <div class="confirmation-header"></div>
+        <h1>Muchas gracias {{ pedido.id_usuario.nombre_usuario }}</h1>
+        <h1>Hemos recibido tu orden</h1>
     </div>
     
-   
+    <p style="text-align: center; font-size: 1.1rem;">Pronto estaremos preparando tu pedido.</p>
     
-    
+    <h2>Detalles de la Transacción</h2>
+    <div class="order-details">
+        <p><strong>Estado del pedido</strong> {{ pedido.estado }}</p>
+        <p><strong>Número de orden N°:</strong>{{ pedido.id_pedido }} </p>
+        <p><strong>Monto total:</strong> ${{ pedido.monto_pedido }}</p>
+        <p><strong>Cliente:</strong> {{ pedido.id_usuario.nombre_usuario }}</p>
+        <p><strong>Correo electrónico:</strong> {{ pedido.id_usuario.correo_usuario }}</p>
+        <p><strong>Fecha de registro:</strong> {{ pedido.fecha_pedido }}</p>
 
-     <a href="{% url 'home' %}" class="btn btn-primary w-100 mt-2">
-                    <i class="fas fa-shopping-cart"></i> Volver a la pagina principal 
-                </a>
+    </div>
+            </div>
 
-        
+    <a href="{% url 'home' %}" class="btn btn-primary w-100 mt-4">
+        <i class="fas fa-home"></i> Regresar a la página principal
+    </a>
 </body>
 
 </html>
