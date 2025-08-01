@@ -11,7 +11,7 @@ from transbank.webpay.webpay_plus.transaction import Transaction, WebpayOptions
 from transbank.common.integration_api_keys import IntegrationApiKeys #sacada de github
 from transbank.common.integration_commerce_codes import IntegrationCommerceCodes  #sacada  del github
 from transbank.common.integration_type import IntegrationType #para poder integrar tipo de transaccion test
-
+ 
 # Create your views here.
 def home(request):
     productos = Producto.objects.select_related('id_categoria').all()[:6]
