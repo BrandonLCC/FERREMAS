@@ -69,3 +69,8 @@ ENV/
 2. Creacion de la views Iniciar_pago y Resultado_pago para redireccionar a la pagina una vez realizado el pago  
 3. Creacion de la urls 
 4. (Por realizar): Se requiere Crear el modelo de compras para almacenar los registros de los usuarios
+
+
+## Programa de Base de datos 
+
+Herramienta de base de datos: DbVisualizer con el archivo db.sqlite3
